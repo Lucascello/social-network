@@ -1,18 +1,18 @@
-import User from "./user";
-import Counter from "./counter";
+// import User from "./user";
+// import Counter from "./counter";
 
-export default function HelloWorld() {
-    const name = "Amy";
+// export default function HelloWorld() {
+//     const name = "Amy";
 
-    return (
-        <>
-            <div className="greeting">
-                Hello,
-                <User name="Alistair" />
-                <User name={name} />
-                <User />
-            </div>
-            <Counter />
-        </>
-    );
-}
+//     return (
+//         <>
+//             <div className="greeting">
+//                 Hello,
+//                 <User name="Alistair" />
+//                 <User name={name} />
+//                 <User />
+//             </div>
+//             <Counter />
+//         </>
+//     );
+// }
