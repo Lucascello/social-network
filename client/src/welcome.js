@@ -3,13 +3,21 @@ import { Registration } from "./registration";
 export default function Welcome() {
     return (
         <>
-            <h1>Welcome to Chestbook</h1>
-            <img className="chestbook" src="/chestbook.jpg" alt="logo" />
-            {/* <img
-                style={{ width: 100 + "px", height: auto }}
-                src="/chestbook.jpg"
+            <header className="header">
+                <h1 className="title">Welcome to Connections</h1>
+                <img
+                    className="connections"
+                    src="/connections.png"
+                    alt="logo"
+                />
+                {/* <img
+                style={{ width: "100px", height: auto }}
+                src="/connections.png"
             /> */}
-            <Registration />
+            </header>
+            <main>
+                <Registration />
+            </main>
         </>
     );
 }

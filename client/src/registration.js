@@ -45,7 +45,7 @@ export class Registration extends Component {
                 // if the user registration got an unsuccessful response:
                 if (!data.success) {
                     this.setState({
-                        error: "Something went wrong with your registration",
+                        error: "Something went wrong, please try again.",
                     });
                 } else {
                     location.reload();
@@ -58,7 +58,7 @@ export class Registration extends Component {
                 console.log("err in fetch /register.json", err);
                 if (!data.success) {
                     this.setState({
-                        error: "Something went wrong with your registration",
+                        error: "Something went wrong, please try again.",
                     });
                 }
                 // we want to render an error state meaning we want to setState and pass to it
@@ -68,40 +68,71 @@ export class Registration extends Component {
     render() {
         return (
             <>
-                <h1>Registration</h1>
-                {this.state.error && (
-                    <h2 style={{ color: "red" }}>{this.state.error}</h2>
-                )}
+                <div className="register">
+                    <h1>Registration</h1>
+                    {this.state.error && (
+                        <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                    )}
+                </div>
+
                 <form>
-                    <input
-                        className="some-css-class"
-                        name="first"
-                        placeholder="First Name"
-                        type="text"
-                        onChange={({ target }) => this.handleChange({ target })}
-                    />
-                    <input
-                        name="last"
-                        placeholder="Last Name"
-                        type="text"
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        name="email"
-                        placeholder="your@email.com"
-                        type="email"
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        name="password"
-                        placeholder="password"
-                        type="password"
-                        onChange={this.handleChange}
-                    />
+                    <div className="register">
+                        <h4>First Name</h4>
+                        <input
+                            type="text"
+                            name="first"
+                            placeholder="First Name"
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
+                            required
+                        />
+                    </div>
+                    <div class="register">
+                        <h4>Last Name</h4>
+                        <input
+                            type="text"
+                            name="last"
+                            placeholder="Last Name"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div class="register">
+                        <h4>Email Address</h4>
+                        <input
+                            type="email"
+                            pattern="[^@\\\\\\\\\s]+@[^@\s]+\.[^@\s]+"
+                            name="email"
+                            placeholder="your@email.com"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div class="register">
+                        <h4>Password</h4>
+                        <input
+                            type="password"
+                            name="password"
+                            minlength="8"
+                            placeholder="password"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
                     {/* <button onClick={(e) => this.handleSubmit(e)}>
                         Register
                     </button> */}
-                    <button onClick={this.handleSubmit}>Register</button>
+                    <button className="register" onClick={this.handleSubmit}>
+                        Register
+                    </button>
+                    <h3 class="login">
+                        If you have already registered, please
+                        <a class="click" href="/login">
+                            {" "}
+                            login{" "}
+                        </a>
+                    </h3>
                 </form>
             </>
         );
