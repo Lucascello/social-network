@@ -34,23 +34,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 app.get("/user/id.json", function (req, res) {
-    // Once you've setup your cookie middleware you
-    // can comment in the below answer!!
     res.json({
         userId: req.session.userId,
     });
 });
 
-// add an app.post to run when your clientside wants to register a user
-// in this route you want to
-/* 
-    register your users:
-        hash their password (remember to setup bcrypt!)
-        and then insert all values submitted to the db -> need to setup our database 
-        stuff (module, as well as db) check your petition project !!
-        IF the user registers successfully let the client side know 
-        IF sth goes wrong let the client side know
-  */
 app.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
     console.log("requested body:", req.body);
@@ -71,6 +59,28 @@ app.post("/register.json", (req, res) => {
             console.log("Error In Hashing Password: ", error);
             res.json({ success: false });
         });
+});
+
+app.post("/login.json", (req, res) => {
+    const { email, password } = req.body;
+
+    db.getPasswords(email).then(({ rows }) => {
+        // console.log(rows);
+        compare(password, rows[0].password)
+            .then((match) => {
+                if (match) {
+                    // console.log("Whats the request", req.session);
+                    req.session.userId = rows[0].id;
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
+                }
+            })
+            .catch((error) => {
+                console.log("Error In Comparing Passwords For Login: ", error);
+                res.json({ success: false });
+            });
+    });
 });
 
 // any routes that we are adding where the client is requesting or sending over

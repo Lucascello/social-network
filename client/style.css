@@ -3,7 +3,7 @@ body {
     margin: 0;
 }
 
-.connections {
+.social {
     width: 300px;
 }
 
@@ -17,7 +17,17 @@ body {
 }
 
 .title {
+    color: red;
     margin-top: 1rem;
+    margin-bottom: 0;
+    font-size: 4rem;
+    font-weight: bold;
+    font-family: fantasy;
+}
+
+.titletwo {
+    color: blue;
+    margin-top: 0;
     margin-bottom: 0;
     font-size: 3rem;
     font-weight: bold;
@@ -40,7 +50,7 @@ h4 {
 }
 
 button {
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
     width: 5.5rem;
     padding: 0.3rem;
     align-self: center;
