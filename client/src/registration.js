@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-export class Registration extends Component {
+export default class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -77,6 +77,10 @@ export class Registration extends Component {
                 </div>
 
                 <form>
+                    <h3 className="login">
+                        Already a member?
+                        <Link to="/login"> Log in here!</Link>
+                    </h3>
                     <div className="register">
                         <h4>First Name</h4>
                         <input
@@ -89,35 +93,41 @@ export class Registration extends Component {
                             required
                         />
                     </div>
-                    <div class="register">
+                    <div className="register">
                         <h4>Last Name</h4>
                         <input
                             type="text"
                             name="last"
                             placeholder="Last Name"
-                            onChange={this.handleChange}
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
                             required
                         />
                     </div>
-                    <div class="register">
+                    <div className="register">
                         <h4>Email Address</h4>
                         <input
                             type="email"
                             pattern="[^@\\\\\\\\\s]+@[^@\s]+\.[^@\s]+"
                             name="email"
                             placeholder="your@email.com"
-                            onChange={this.handleChange}
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
                             required
                         />
                     </div>
-                    <div class="register">
+                    <div className="register">
                         <h4>Password</h4>
                         <input
                             type="password"
                             name="password"
-                            minlength="6"
+                            minLength="6"
                             placeholder="password"
-                            onChange={this.handleChange}
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
                             required
                         />
                     </div>
@@ -127,10 +137,6 @@ export class Registration extends Component {
                     <button className="register" onClick={this.handleSubmit}>
                         Register
                     </button>
-                    <h3 className="login">
-                        If you have already registered, please
-                        <Link to="/login">Click here to Log in!</Link>
-                    </h3>
                 </form>
             </>
         );

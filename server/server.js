@@ -64,23 +64,32 @@ app.post("/register.json", (req, res) => {
 app.post("/login.json", (req, res) => {
     const { email, password } = req.body;
 
-    db.getPasswords(email).then(({ rows }) => {
-        // console.log(rows);
-        compare(password, rows[0].password)
-            .then((match) => {
-                if (match) {
-                    // console.log("Whats the request", req.session);
-                    req.session.userId = rows[0].id;
-                    res.json({ success: true });
-                } else {
+    // console.log("req.body:", req.body);
+    if (email && password) {
+        db.getPasswords(email).then(({ rows }) => {
+            console.log("My rows in /login.json", rows);
+            compare(password, rows[0].password)
+                .then((match) => {
+                    if (match) {
+                        console.log(
+                            "Whats the requestin /login.json",
+                            req.body
+                        );
+                        req.session.userId = rows[0].id;
+                        res.json({ success: true });
+                    }
+                })
+                .catch((error) => {
+                    console.log(
+                        "Error In Comparing Passwords For Login: ",
+                        error
+                    );
                     res.json({ success: false });
-                }
-            })
-            .catch((error) => {
-                console.log("Error In Comparing Passwords For Login: ", error);
-                res.json({ success: false });
-            });
-    });
+                });
+        });
+    } else {
+        res.json({ success: false });
+    }
 });
 
 // any routes that we are adding where the client is requesting or sending over

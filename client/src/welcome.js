@@ -10,9 +10,10 @@ export default function Welcome() {
                 <h1 className="titletwo">Connecting you to the RIGHT people</h1>
                 <img className="social" src="/social.png" alt="logo" />
                 {/* <img
-                style={{ width: "100px", height: auto }}
-                src="/connections.png"
-            /> */}
+                    style={{ width: "100vw", height: "auto" }}
+                    src="/social.png"
+                    alt="logo"
+                /> */}
             </header>
             <main>
                 <BrowserRouter>

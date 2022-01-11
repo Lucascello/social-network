@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-export class Login extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,13 +21,13 @@ export class Login extends Component {
             {
                 [target.name]: target.value,
             },
-            () => console.log("handleChange update done:", this.state)
+            () => console.log("handleChange in login update done:", this.state)
         );
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("user wants to submit their details", this.state);
-        fetch("/.json", {
+        console.log("user wants to submit their details on login", this.state);
+        fetch("/login.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export class Login extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /register.json:", data);
+                console.log("response data from /login.json:", data);
                 console.log("data from the user:", data.userId);
                 if (!data.success) {
                     this.setState({
@@ -59,6 +59,17 @@ export class Login extends Component {
         return (
             <>
                 <br />
+                <div className="register">
+                    <h1>Login</h1>
+                    <h3 className="login">
+                        Not a member yet?
+                        <Link to="/"> Register in here!</Link>
+                    </h3>
+                    {this.state.error && (
+                        <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                    )}
+                </div>
+
                 <form>
                     <div className="register">
                         <h4>Email Address</h4>
@@ -67,7 +78,9 @@ export class Login extends Component {
                             pattern="[^@\\\\\\\\\s]+@[^@\s]+\.[^@\s]+"
                             name="email"
                             placeholder="your@email.com"
-                            onChange={this.handleChange}
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
                             required
                         />
                     </div>
@@ -76,13 +89,14 @@ export class Login extends Component {
                         <input
                             type="password"
                             name="password"
-                            minlength="6"
+                            minLength="6"
                             placeholder="password"
-                            onChange={this.handleChange}
+                            onChange={({ target }) =>
+                                this.handleChange({ target })
+                            }
                             required
                         />
                     </div>
-                    <br />
                     <button className="register" onClick={this.handleSubmit}>
                         Login
                     </button>

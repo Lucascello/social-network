@@ -7,6 +7,10 @@ body {
     width: 300px;
 }
 
+h1 {
+    margin-bottom: 0;
+}
+
 .header {
     background-color: rgba(207, 137, 38, 0.867);
     padding-bottom: 1rem;
