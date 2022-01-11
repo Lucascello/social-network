@@ -5,6 +5,9 @@ const path = require("path");
 const db = require("./db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
+// const aws = require("aws-sdk");
+const { sendEmail } = require("./ses.js");
+const cryptoRandom = require("crypto-random-string");
 
 let sessionSecret = process.env.COOKIE_SECRET;
 
@@ -90,6 +93,26 @@ app.post("/login.json", (req, res) => {
     } else {
         res.json({ success: false });
     }
+});
+
+app.post("/resetPassword.json", (req, res) => {
+    const { email } = req.body;
+
+    console.log("requested body in resetPassword", req.body);
+    db.getUsersInfoEmail(email).then(({ rows }) => {
+        console.log("rows for the post resetPassword", rows);
+        if (email === rows[0].email) {
+            console.log(
+                "random characters for the code:",
+                cryptoRandom({ length: 6 })
+            );
+            db.setCode(cryptoRandom({ length: 6 }), rows[0].email).then(
+                (result) => {
+                    console.log("result from setCode a code: ", result);
+                }
+            );
+        }
+    });
 });
 
 // any routes that we are adding where the client is requesting or sending over

@@ -22,7 +22,26 @@ module.exports.getUsersInfo = () => {
     return db.query(q);
 };
 
+module.exports.getUsersInfoEmail = (email) => {
+    const q = `SELECT * FROM users WHERE email = $1`;
+    return db.query(q, [email]);
+};
+
 module.exports.getPasswords = (email) => {
     const q = "SELECT id, password FROM users WHERE email = $1";
     return db.query(q, [email]);
+};
+
+module.exports.resetPasswordCode = () => {
+    const q = `SELECT * FROM reset_password 
+    WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
+    return db.query(q);
+};
+
+module.exports.setCode = (code, email) => {
+    const q = `INSERT INTO reset_password (code, email)
+                VALUES ($1, $2)
+                RETURNING created_at`;
+    const params = [code, email];
+    return db.query(q, params);
 };

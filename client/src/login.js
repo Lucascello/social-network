@@ -47,7 +47,7 @@ export default class Login extends Component {
                 }
             })
             .catch((err) => {
-                console.log("err in fetch /register.json", err);
+                console.log("err in fetch /login.json", err);
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",
@@ -83,6 +83,9 @@ export default class Login extends Component {
                             }
                             required
                         />
+                    </div>
+                    <div className="register">
+                        <Link to="/resetPassword"> Forgot Your Password?</Link>
                     </div>
                     <div className="register">
                         <h4>Password</h4>
