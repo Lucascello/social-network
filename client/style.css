@@ -7,6 +7,38 @@ body {
     width: 300px;
 }
 
+.profile {
+    border-radius: 50%;
+    width: 150px;
+}
+
+.close {
+    width: 20px;
+}
+
+.cool-styles {
+    margin: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.upload {
+    background-color: grey;
+    border: 3px solid black;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 30%;
+    width: 40vw;
+    height: 40vh;
+    position: absolute;
+    left: 25vw;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
 h1 {
     margin-bottom: 0;
 }

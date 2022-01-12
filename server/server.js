@@ -8,6 +8,8 @@ const cookieSession = require("cookie-session");
 // const aws = require("aws-sdk");
 const { sendEmail } = require("./ses.js");
 const cryptoRandom = require("crypto-random-string");
+// const { uploader } = require("./upload");
+const s3 = require("./s3");
 
 let sessionSecret = process.env.COOKIE_SECRET;
 
@@ -152,6 +154,11 @@ app.post("/resetPassword.json", (req, res) => {
             });
         }
     });
+});
+
+app.get("/navigation.json", (req, res) => {
+    const { userId } = req.session;
+    console.log("requested session for navigation :", req.session);
 });
 
 // any routes that we are adding where the client is requesting or sending over

@@ -27,6 +27,11 @@ module.exports.getUsersInfoEmail = (email) => {
     return db.query(q, [email]);
 };
 
+module.exports.getUserInfoId = (id) => {
+    const q = `SELECT * FROM users WHERE id = $1`;
+    return db.query(q, [id]);
+};
+
 module.exports.getUsersLatestRequest = (email) => {
     const q = `SELECT * FROM reset_password
 WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
