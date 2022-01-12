@@ -95,22 +95,61 @@ app.post("/login.json", (req, res) => {
     }
 });
 
-app.post("/resetPassword.json", (req, res) => {
+app.post("/requestCode.json", (req, res) => {
     const { email } = req.body;
 
-    console.log("requested body in resetPassword", req.body);
+    console.log("requested body in requestCode", req.body);
     db.getUsersInfoEmail(email).then(({ rows }) => {
-        console.log("rows for the post resetPassword", rows);
-        if (email === rows[0].email) {
+        console.log("rows for the post requestCode:", rows);
+        if (rows.length) {
             console.log(
                 "random characters for the code:",
                 cryptoRandom({ length: 6 })
             );
             db.setCode(cryptoRandom({ length: 6 }), rows[0].email).then(
                 (result) => {
-                    console.log("result from setCode a code: ", result);
+                    console.log(
+                        "result from setting a code for reseting the password: ",
+                        result
+                    );
+                    // console.log(
+                    //     "users email to retrive code: ",
+                    //     result.rows[0].email
+                    // );
+                    const email = result.rows[0].email;
+                    const code = `Dear user, this is the code to reset your password: ${result.rows[0].code}`;
+                    const subject = "Reseting your password";
+                    sendEmail(subject, code, email).then(() => {
+                        res.json({ success: true });
+                    });
                 }
             );
+        } else {
+            res.json({ success: false });
+        }
+    });
+});
+
+app.post("/resetPassword.json", (req, res) => {
+    const { code, password, email } = req.body;
+
+    console.log("requested body in resetPassword", req.body);
+
+    db.getResetPasswordCode(code).then(({ rows }) => {
+        if (code === rows[0].code) {
+            hash(password).then((hashedPw) => {
+                console.log("hashedPWd :", hashedPw);
+                console.log("email :", email);
+                console.log("password :", password);
+                db.updatePassword(hashedPw, email)
+                    .then(({ rows }) => {
+                        res.json({ success: true });
+                    })
+                    .catch((error) => {
+                        console.log("Error in updating password : ", error);
+                        res.json({ success: false });
+                    });
+            });
         }
     });
 });

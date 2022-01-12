@@ -13,16 +13,16 @@ module.exports.sendEmail = function (subject, body, recipient) {
         .sendEmail({
             Source: "Lucas <puddle.farmer@spicedling.email>",
             Destination: {
-                ToAddresses: ["puddle.farmer@spicedling.email"],
+                ToAddresses: [recipient],
             },
             Message: {
                 Body: {
                     Text: {
-                        Data: "Dear User, the code to retrieve your email account is:",
+                        Data: body,
                     },
                 },
                 Subject: {
-                    Data: "Recovering password",
+                    Data: subject,
                 },
             },
         })

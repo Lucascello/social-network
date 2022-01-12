@@ -16,6 +16,42 @@ export default class ResetPassword extends Component {
     incrementState(e) {
         e.preventDefault();
         console.log("user gave it's email to change the password", this.state);
+        fetch("/requestCode.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.state),
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                console.log("response data from /requestCode.json:", data);
+                console.log(
+                    "data from the user on requestCode.json:",
+                    data.userId
+                );
+                if (!data.success) {
+                    this.setState({
+                        error: "Something went wrong, please try again.",
+                    });
+                } else {
+                    this.setState({
+                        stage: this.state.stage + 1,
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("err in fetch /requestCode.json", err);
+                if (!data.success) {
+                    this.setState({
+                        error: "Something went wrong, please try again.",
+                    });
+                }
+            });
+    }
+    incrementStateAgain(e) {
+        e.preventDefault();
+        console.log("User is giving code and new password", this.state);
         fetch("/resetPassword.json", {
             method: "POST",
             headers: {
@@ -25,27 +61,29 @@ export default class ResetPassword extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /resetPassword.json:", data);
-                console.log("data from the user:", data.userId);
-                // if (!data.success) {
-                //     this.setState({
-                //         error: "Something went wrong, please try again.",
-                //     });
-                // } else {
-                //     location.reload();
-                // }
+                console.log("response data from /requestCode.json:", data);
+                console.log(
+                    "data from the user on requestCode.json:",
+                    data.userId
+                );
+                if (!data.success) {
+                    this.setState({
+                        error: "Something went wrong, please try again.",
+                    });
+                } else {
+                    this.setState({
+                        stage: this.state.stage + 1,
+                    });
+                }
             })
             .catch((err) => {
-                console.log("err in fetch /resetPassword.json", err);
+                console.log("err in fetch /requestCode.json", err);
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",
                     });
                 }
             });
-        // this.setState({
-        //     stage: this.state.stage + 1,
-        // });
     }
     handleChange({ target }) {
         console.log("input value changed :D");
@@ -63,6 +101,9 @@ export default class ResetPassword extends Component {
         if (this.state.stage === 1) {
             return (
                 <form>
+                    {this.state.error && (
+                        <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                    )}
                     <br />
                     <div className="register">
                         <h3>
@@ -70,6 +111,7 @@ export default class ResetPassword extends Component {
                             registration
                         </h3>
                         <input
+                            key="1"
                             type="email"
                             pattern="[^@\\\\\\\\\s]+@[^@\s]+\.[^@\s]+"
                             name="email"
@@ -91,6 +133,9 @@ export default class ResetPassword extends Component {
         } else if (this.state.stage === 2) {
             return (
                 <form>
+                    {this.state.error && (
+                        <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                    )}
                     <br />
                     <div className="register">
                         <h4>Please enter the code you received</h4>
@@ -107,6 +152,7 @@ export default class ResetPassword extends Component {
                     <div className="register">
                         <h4>Please enter a new password</h4>
                         <input
+                            key="2"
                             type="password"
                             name="password"
                             minLength="6"
@@ -119,7 +165,7 @@ export default class ResetPassword extends Component {
                     </div>
                     <button
                         className="retrieve"
-                        onClick={() => this.incrementState()}
+                        onClick={(e) => this.incrementStateAgain(e)}
                     >
                         Next
                     </button>
