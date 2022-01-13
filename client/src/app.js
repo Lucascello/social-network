@@ -33,9 +33,11 @@ export default class App extends Component {
             });
     }
 
-    toggleUploader() {
+    toggleUploader(url) {
+        console.log("url in my toggleUploader:", url);
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
+            url: url,
         });
     }
 
@@ -63,7 +65,10 @@ export default class App extends Component {
                     />
                 </section>
                 {this.state.uploaderIsVisible && (
-                    <Uploader loggerFunc={this.logNameAndPic} />
+                    <Uploader
+                        loggerFunc={this.logNameAndPic}
+                        toggleUploader={this.toggleUploader}
+                    />
                 )}
             </>
         );

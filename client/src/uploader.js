@@ -21,7 +21,8 @@ export default class uploader extends Component {
         })
             .then((res) => res.json())
             .then((result) => {
-                console.log("result: ", result);
+                console.log("result for the new pic result.url ", result.url);
+                this.props.toggleUploader(result.url);
             })
             .catch((err) => {
                 console.log("error uploading new image: ", err);
