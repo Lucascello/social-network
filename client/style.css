@@ -20,6 +20,7 @@ body {
     margin: 30px;
     display: flex;
     justify-content: space-between;
+    border-bottom: mintcream;
 }
 
 .upload {
@@ -38,6 +39,7 @@ body {
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
+    z-index: 2;
 }
 
 h1 {
@@ -103,4 +105,21 @@ button {
 
 .login {
     align-self: center;
+}
+
+.profile-pic {
+    width: 300px;
+}
+
+.main-container {
+    margin: 2rem;
+    padding: 2rem;
+    width: 80vw;
+    height: 70vh;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 }

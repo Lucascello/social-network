@@ -1,12 +1,18 @@
 import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
+import Profile from "./profile";
 
 export default class App extends Component {
     constructor() {
         super();
         this.state = {
             uploaderIsVisible: false,
+            profileIsVisible: true,
+            favoriteSweet: "🧁",
+            url: "url",
+            first: "first",
+            last: "last:",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndPic = this.logNameAndPic.bind(this);
@@ -71,11 +77,20 @@ export default class App extends Component {
                         loggerFunc={this.logNameAndPic}
                     />
                 </section>
+                <hr></hr>
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         loggerFunc={this.logNameAndPic}
                         toggleUploader={this.toggleUploader}
                         uploadPicture={this.uploadPicture}
+                    />
+                )}
+                {this.state.profileIsVisible && (
+                    <Profile
+                        favoriteSweet={this.state.favoriteSweet}
+                        url={this.state.url}
+                        first={this.state.first}
+                        last={this.state.last}
                     />
                 )}
             </>

@@ -73,7 +73,6 @@ app.post(
         const { userId } = req.session;
         if (req.file) {
             console.log("This Is My File: ", req.file);
-            console.log("This is my Requested Body: ", req.body);
 
             const url = `https://spicedling.s3.amazonaws.com/${req.file.filename}`;
 
