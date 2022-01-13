@@ -13,7 +13,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        // console.log("App component mounted");
+        console.log("App component mounted");
         // Make fetch request to get data for currently logged in user
         // and store this data in the component state
         fetch("/navigation.json")
@@ -27,7 +27,6 @@ export default class App extends Component {
                     url: data.url,
                     email: data.email,
                 });
-                console.log("App component mounted");
             })
             .catch((err) => {
                 console.log("error on the navigation :", err);
@@ -63,7 +62,9 @@ export default class App extends Component {
                         loggerFunc={this.logNameAndPic}
                     />
                 </section>
-                {this.state.uploaderIsVisible && <Uploader />}
+                {this.state.uploaderIsVisible && (
+                    <Uploader loggerFunc={this.logNameAndPic} />
+                )}
             </>
         );
     }

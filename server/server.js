@@ -5,10 +5,9 @@ const path = require("path");
 const db = require("./db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
-// const aws = require("aws-sdk");
 const { sendEmail } = require("./ses.js");
 const cryptoRandom = require("crypto-random-string");
-// const { uploader } = require("./upload");
+const { uploader } = require("./upload");
 const s3 = require("./s3");
 
 let sessionSecret = process.env.COOKIE_SECRET;
@@ -158,7 +157,19 @@ app.post("/resetPassword.json", (req, res) => {
 
 app.get("/navigation.json", (req, res) => {
     const { userId } = req.session;
-    console.log("requested session for navigation :", req.session);
+    console.log("requested session for navigation :", userId);
+    db.getUserInfoId(userId)
+        .then(({ rows }) => {
+            console.log("rows in /navigation.json :", rows);
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("Error in /navigation.json :", err);
+        });
+
+    // res.json({
+    //     userId: req.session.userId,
+    // });
 });
 
 // any routes that we are adding where the client is requesting or sending over
