@@ -10,6 +10,7 @@ export default class App extends Component {
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndPic = this.logNameAndPic.bind(this);
+        this.uploadPicture = this.uploadPicture.bind(this);
     }
 
     componentDidMount() {
@@ -33,11 +34,17 @@ export default class App extends Component {
             });
     }
 
-    toggleUploader(url) {
+    uploadPicture(url) {
         console.log("url in my toggleUploader:", url);
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
             url: url,
+        });
+    }
+
+    toggleUploader() {
+        this.setState({
+            uploaderIsVisible: !this.state.uploaderIsVisible,
         });
     }
 
@@ -68,6 +75,7 @@ export default class App extends Component {
                     <Uploader
                         loggerFunc={this.logNameAndPic}
                         toggleUploader={this.toggleUploader}
+                        uploadPicture={this.uploadPicture}
                     />
                 )}
             </>
