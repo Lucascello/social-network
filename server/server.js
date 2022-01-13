@@ -65,6 +65,33 @@ app.post("/register.json", (req, res) => {
         });
 });
 
+app.post(
+    "/uploadProfilePic",
+    uploader.single("file"),
+    s3.upload,
+    function (req, res) {
+        const { userId } = req.session;
+        if (req.file) {
+            console.log("This Is My File: ", req.file);
+            console.log("This is my Requested Body: ", req.body);
+
+            const url = `https://spicedling.s3.amazonaws.com/${req.file.filename}`;
+
+            db.uploadProfilePic(url, userId)
+                .then(({ rows }) => {
+                    res.json(rows[0]);
+                })
+                .catch((error) => {
+                    console.log("Error In Uploading ProfilePic: ", error);
+                });
+        } else {
+            res.json({
+                success: false,
+            });
+        }
+    }
+);
+
 app.post("/login.json", (req, res) => {
     const { email, password } = req.body;
 

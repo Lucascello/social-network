@@ -20,7 +20,7 @@ export default class App extends Component {
             .then((response) => response.json())
             .then((data) => {
                 console.log("data on the navigation: ", data);
-                this.state({
+                this.setState({
                     id: data.id,
                     first: data.first,
                     last: data.last,

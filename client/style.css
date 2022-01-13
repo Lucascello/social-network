@@ -28,15 +28,16 @@ body {
     margin: 2rem;
     padding: 2rem;
     border-radius: 30%;
-    width: 40vw;
-    height: 40vh;
+    width: 30vw;
+    height: 30vh;
     position: absolute;
-    left: 25vw;
+    left: 30vw;
     z-index: 1;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 h1 {
