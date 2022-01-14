@@ -198,6 +198,14 @@ app.get("/navigation.json", (req, res) => {
     // });
 });
 
+app.post("/updateUsersBio", (req, res) => {
+    console.log("Requested session to update the bio", req.session);
+    console.log("Requested body to update the bio", req.body);
+    db.updateUsersBio().then(({ rows }) => {
+        console.log("What are the rows in updateUsersBio :", rows);
+    });
+});
+
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {

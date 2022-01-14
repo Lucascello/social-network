@@ -70,3 +70,9 @@ module.exports.uploadProfilePic = (url, id) => {
     const params = [url, id];
     return db.query(q, params);
 };
+
+module.exports.updateUsersBio = (bio, id) => {
+    const q = `UPDATE users SET bio = $1 WHERE id = $2 RETURNING bio`;
+    const params = [bio, id];
+    return db.query(q, params);
+};

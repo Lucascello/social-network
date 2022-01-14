@@ -13,6 +13,7 @@ export default class App extends Component {
             url: "url",
             first: "first",
             last: "last:",
+            bio: "bio",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndPic = this.logNameAndPic.bind(this);
@@ -33,6 +34,7 @@ export default class App extends Component {
                     last: data.last,
                     url: data.url,
                     email: data.email,
+                    bio: data.bio,
                 });
             })
             .catch((err) => {
@@ -91,6 +93,8 @@ export default class App extends Component {
                         url={this.state.url}
                         first={this.state.first}
                         last={this.state.last}
+                        bio={this.state.bio}
+                        toggleUploader={this.toggleUploader}
                     />
                 )}
             </>

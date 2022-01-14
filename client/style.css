@@ -30,7 +30,7 @@ body {
     padding: 2rem;
     border-radius: 30%;
     width: 30vw;
-    height: 30vh;
+    height: 40vh;
     position: absolute;
     left: 30vw;
     z-index: 1;
@@ -40,6 +40,11 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     z-index: 2;
+    overflow: hidden;
+}
+
+.uploader-h2 {
+    font-weight: bold;
 }
 
 h1 {
@@ -118,8 +123,54 @@ button {
     height: 70vh;
     position: absolute;
     z-index: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.profile-pic {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+.profile-h1 {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    font-family: fantasy;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.textbox-profile {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    font-family: fantasy;
+    font-weight: bold;
+}
+
+.bio-h3 {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+}
+
+.bio-text {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.save {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 4;
+    justify-self: center;
 }

@@ -39,7 +39,9 @@ export default class uploader extends Component {
                         alt="close"
                     />
                     <br />
-                    <h2>Want to change your picture? </h2>
+                    <h2 className="uploader-h2">
+                        Want to change your picture?{" "}
+                    </h2>
                     <form>
                         <input
                             onChange={this.selectProfilePic}
