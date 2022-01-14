@@ -48,11 +48,6 @@ export default class Login extends Component {
             })
             .catch((err) => {
                 console.log("err in fetch /login.json", err);
-                if (!data.success) {
-                    this.setState({
-                        error: "Something went wrong, please try again.",
-                    });
-                }
             });
     }
     render() {

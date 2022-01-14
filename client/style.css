@@ -10,6 +10,11 @@ body {
 .profile {
     border-radius: 50%;
     width: 150px;
+    cursor: pointer;
+}
+
+.profile:hover {
+    width: 160px;
 }
 
 .close {
@@ -114,6 +119,11 @@ button {
 
 .profile-pic {
     width: 300px;
+    cursor: pointer;
+}
+
+.profile-pic:hover {
+    width: 310px;
 }
 
 .main-container {
@@ -161,6 +171,11 @@ button {
     grid-row-start: 3;
 }
 
+.bio-h3:hover {
+    color: rgb(34, 34, 232);
+    font-size: x-large;
+}
+
 .bio-text {
     grid-column-start: 3;
     grid-column-end: 5;
@@ -174,4 +189,10 @@ button {
     grid-column-end: 5;
     grid-row-start: 4;
     justify-self: center;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
 }

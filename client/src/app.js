@@ -79,12 +79,15 @@ export default class App extends Component {
                         alt="social network logo"
                         id="homepage-logo"
                     />
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.url}
-                        loggerFunc={this.logNameAndPic}
-                    />
+                    <div className="header-right">
+                        <h3 className="bio-h3">Find People</h3>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.url}
+                            loggerFunc={this.logNameAndPic}
+                        />
+                    </div>
                 </section>
                 <hr></hr>
                 {this.state.uploaderIsVisible && (
