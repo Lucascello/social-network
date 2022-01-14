@@ -201,9 +201,15 @@ app.get("/navigation.json", (req, res) => {
 app.post("/updateUsersBio", (req, res) => {
     console.log("Requested session to update the bio", req.session);
     console.log("Requested body to update the bio", req.body);
-    db.updateUsersBio().then(({ rows }) => {
-        console.log("What are the rows in updateUsersBio :", rows);
-    });
+    const { bio } = req.body;
+    db.updateUsersBio(bio, req.session.userId)
+        .then(({ rows }) => {
+            console.log("What are the rows in updateUsersBio :", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("adding something to the bio failed:", err);
+        });
 });
 
 // any routes that we are adding where the client is requesting or sending over

@@ -44,7 +44,7 @@ export default class BioEditor extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /updateUsersBio:", data);
+                console.log(" data from /updateUsersBio:", data[0]);
             });
     }
     render() {
@@ -55,6 +55,8 @@ export default class BioEditor extends Component {
                         onChange={({ target }) => this.handleChange({ target })}
                         className="textbox-profile"
                         defaultValue=""
+                        name="bio"
+                        placeholder="write something about yourself"
                     />
                     <button onClick={this.updateUsersBio} className="save">
                         Save
@@ -66,7 +68,9 @@ export default class BioEditor extends Component {
                 <>
                     <h3 className="bio-text">{this.props.bio}</h3>
                     <h3 onClick={this.toggleBioIsVisible} className="bio-h3">
-                        {this.props.bio ? "Edit your bio" : "Add your bio"}
+                        {this.props.bio
+                            ? "Edit your bio"
+                            : "Add some information to your bio"}
                     </h3>
                 </>
             );

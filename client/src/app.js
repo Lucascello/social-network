@@ -50,6 +50,8 @@ export default class App extends Component {
         });
     }
 
+    
+
     toggleUploader() {
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
