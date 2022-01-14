@@ -1,5 +1,4 @@
 import { Component } from "react";
-import Profile from "./profile";
 
 export default class BioEditor extends Component {
     constructor() {
@@ -12,7 +11,7 @@ export default class BioEditor extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.toggleBioIsVisible = this.toggleBioIsVisible.bind(this);
     }
-    componentDidMount(e) {
+    componentDidMount() {
         console.log("bioEditor just mounted");
         console.log("props in bioEditor:", this.props);
     }
@@ -21,6 +20,7 @@ export default class BioEditor extends Component {
             bioIsVisible: !this.state.bioIsVisible,
         });
     }
+
     handleChange({ target }) {
         console.log("input value changed in bio :D");
         console.log("value typed:", target.value);
@@ -45,7 +45,9 @@ export default class BioEditor extends Component {
             .then((data) => data.json())
             .then((data) => {
                 console.log(" data from /updateUsersBio:", data[0]);
+                this.props.toggleBioIsUpdated(data[0].bio);
             });
+        this.toggleBioIsVisible();
     }
     render() {
         if (this.state.bioIsVisible) {
@@ -54,7 +56,7 @@ export default class BioEditor extends Component {
                     <textarea
                         onChange={({ target }) => this.handleChange({ target })}
                         className="textbox-profile"
-                        defaultValue=""
+                        defaultValue={this.props.bio}
                         name="bio"
                         placeholder="write something about yourself"
                     />
@@ -66,7 +68,7 @@ export default class BioEditor extends Component {
         } else {
             return (
                 <>
-                    <h3 className="bio-text">{this.props.bio}</h3>
+                    <h2 className="bio-text">{this.props.bio}</h2>
                     <h3 onClick={this.toggleBioIsVisible} className="bio-h3">
                         {this.props.bio
                             ? "Edit your bio"

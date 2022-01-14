@@ -49,7 +49,6 @@ export default class uploader extends Component {
                             type="file"
                             name="file"
                             accept="image/*"
-                            ref="upload"
                         />
                         <button onClick={this.uploadPic}>Upload</button>
                     </form>

@@ -169,7 +169,7 @@ app.post("/resetPassword.json", (req, res) => {
                 console.log("email :", email);
                 console.log("password :", password);
                 db.updatePassword(hashedPw, email)
-                    .then(({ rows }) => {
+                    .then(() => {
                         res.json({ success: true });
                     })
                     .catch((error) => {

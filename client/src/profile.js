@@ -21,6 +21,7 @@ export default function Profile(props) {
                     first={props.first}
                     last={props.last}
                     favoriteSweet={props.favoriteSweet}
+                    toggleBioIsUpdated={props.toggleBioIsUpdated}
                 />
             </div>
         </>

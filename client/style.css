@@ -166,6 +166,7 @@ button {
     grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
+    font-family: fantasy;
 }
 
 .save {

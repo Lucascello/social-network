@@ -18,6 +18,7 @@ export default class App extends Component {
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndPic = this.logNameAndPic.bind(this);
         this.uploadPicture = this.uploadPicture.bind(this);
+        this.toggleBioIsUpdated = this.toggleBioIsUpdated.bind(this);
     }
 
     componentDidMount() {
@@ -49,8 +50,12 @@ export default class App extends Component {
             url: url,
         });
     }
-
-    
+    toggleBioIsUpdated(bio) {
+        console.log("bio in my toggleBioIsVisible", bio);
+        this.setState({
+            bio: bio,
+        });
+    }
 
     toggleUploader() {
         this.setState({
@@ -97,6 +102,7 @@ export default class App extends Component {
                         last={this.state.last}
                         bio={this.state.bio}
                         toggleUploader={this.toggleUploader}
+                        toggleBioIsUpdated={this.toggleBioIsUpdated}
                     />
                 )}
             </>

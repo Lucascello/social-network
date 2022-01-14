@@ -57,11 +57,11 @@ export default class Registration extends Component {
             })
             .catch((err) => {
                 console.log("err in fetch /register.json", err);
-                if (!data.success) {
-                    this.setState({
-                        error: "Something went wrong, please try again.",
-                    });
-                }
+
+                this.setState({
+                    error: "Something went wrong, please try again.",
+                });
+
                 // we want to render an error state meaning we want to setState and pass to it
                 // an object containing an error property and some value
             });
