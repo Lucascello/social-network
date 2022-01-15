@@ -38,6 +38,7 @@ export default class Login extends Component {
             .then((data) => {
                 console.log("response data from /login.json:", data);
                 console.log("data from the user:", data.userId);
+                console.log("Success in retrieving data", data.success);
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",
@@ -48,6 +49,9 @@ export default class Login extends Component {
             })
             .catch((err) => {
                 console.log("err in fetch /login.json", err);
+                this.setState({
+                    error: "Something went wrong, please try again.",
+                });
             });
     }
     render() {

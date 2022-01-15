@@ -74,11 +74,18 @@ export default class App extends Component {
         return (
             <>
                 <section className="cool-styles">
-                    <img
-                        src="social.png"
-                        alt="social network logo"
-                        id="homepage-logo"
-                    />
+                    <div className="logout">
+                        <img
+                            src="social.png"
+                            alt="social network logo"
+                            id="homepage-logo"
+                        />
+                        <br />
+                        <a className="goodbye" href="/logout">
+                            Logout
+                        </a>
+                    </div>
+
                     <div className="header-right">
                         <h3 className="bio-h3">Find People</h3>
                         <ProfilePic

@@ -7,6 +7,29 @@ body {
     width: 300px;
 }
 
+.goodbye {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    font-size: larger;
+    margin-left: 5px;
+}
+
+.goodbye:hover {
+    color: rgb(34, 34, 232);
+    font-size: x-large;
+    font-style: inherit;
+}
+
+.logout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .profile {
     border-radius: 50%;
     width: 150px;
@@ -169,6 +192,7 @@ button {
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 3;
+    margin-right: 5px;
 }
 
 .bio-h3:hover {
@@ -194,5 +218,5 @@ button {
 .header-right {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
 }
