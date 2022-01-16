@@ -49,6 +49,8 @@ body {
     display: flex;
     justify-content: space-between;
     border-bottom: mintcream;
+    background-color: rgba(207, 137, 38, 0.867);
+    margin: 0;
 }
 
 .upload {

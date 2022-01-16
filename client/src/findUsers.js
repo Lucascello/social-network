@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
-export function HooksDemo() {
+export default function FindUsers(props) {
     const [search, setSearch] = useState();
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         let abort = false;
-        fetch(`/countries?search=${search}`)
+        fetch(`/users?search=${search}`)
             .then((res) => res.json())
-            .then((countries) => {
+            .then((users) => {
                 if (!abort) {
-                    console.log(countries);
+                    console.log(users);
+                    setUsers(users);
                 }
             });
         return () => {
@@ -19,8 +21,11 @@ export function HooksDemo() {
 
     return (
         <>
-            <h1>Hooks Demo</h1>
+            <h1>Find Other Users</h1>
             <input onChange={(e) => setSearch(e.target.value)} />
+            <h3 onClick={props.toggleFindUserIsVisible} className="bio-h3">
+                Return To My Page
+            </h3>
         </>
     );
 }

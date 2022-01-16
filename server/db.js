@@ -76,3 +76,9 @@ module.exports.updateUsersBio = (bio, id) => {
     const params = [bio, id];
     return db.query(q, params);
 };
+
+module.exports.findOtherUsers = (val) => {
+    const q = `SELECT * FROM users WHERE first ILIKE $1`;
+    const params = [val + "%"];
+    return db.query(q, params);
+};

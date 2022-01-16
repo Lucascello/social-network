@@ -2,6 +2,7 @@ import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import FindUsers from "./findUsers";
 
 export default class App extends Component {
     constructor() {
@@ -9,6 +10,7 @@ export default class App extends Component {
         this.state = {
             uploaderIsVisible: false,
             profileIsVisible: true,
+            findUserIsVisible: false,
             favoriteSweet: "🧁",
             url: "url",
             first: "first",
@@ -19,6 +21,7 @@ export default class App extends Component {
         this.logNameAndPic = this.logNameAndPic.bind(this);
         this.uploadPicture = this.uploadPicture.bind(this);
         this.toggleBioIsUpdated = this.toggleBioIsUpdated.bind(this);
+        this.toggleFindUserIsVisible = this.toggleFindUserIsVisible.bind(this);
     }
 
     componentDidMount() {
@@ -63,6 +66,12 @@ export default class App extends Component {
         });
     }
 
+    toggleFindUserIsVisible() {
+        this.setState({
+            findUserIsVisible: !this.state.findUserIsVisible,
+        });
+    }
+
     logNameAndPic(val) {
         console.log(this.state.uploaderIsVisible + val);
         this.setState({
@@ -87,7 +96,12 @@ export default class App extends Component {
                     </div>
 
                     <div className="header-right">
-                        <h3 className="bio-h3">Find People</h3>
+                        <h3
+                            onClick={this.toggleFindUserIsVisible}
+                            className="bio-h3"
+                        >
+                            Find Other Users
+                        </h3>
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}
@@ -97,6 +111,13 @@ export default class App extends Component {
                     </div>
                 </section>
                 <hr></hr>
+                {this.state.findUserIsVisible && (
+                    <FindUsers
+                        toggleFindUserIsVisible={this.toggleFindUserIsVisible}
+                        findUserIsVisible={this.state.findUserIsVisible}
+                    />
+                )}
+
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         loggerFunc={this.logNameAndPic}
