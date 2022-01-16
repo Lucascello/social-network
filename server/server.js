@@ -227,6 +227,30 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 
+app.get("/users/:userSearch", (req, res) => {
+    console.log(
+        "Am I getting any users for the search?:",
+        req.params.userSearch
+    );
+    db.findOtherUsers(req.params.userSearch)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("error in userSearch :", error);
+        });
+});
+
+app.get("/latestUsers", (req, res) => {
+    db.getLatestUsers(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {

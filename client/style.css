@@ -202,6 +202,26 @@ button {
     font-size: x-large;
 }
 
+.bio-h3-extra {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    margin-left: 5px;
+    display: inline;
+}
+
+.bio-h3-extra:hover {
+    color: rgb(34, 34, 232);
+    font-size: x-large;
+}
+
+.findUsers {
+    display: inline;
+}
+
 .bio-text {
     grid-column-start: 3;
     grid-column-end: 5;
@@ -221,4 +241,31 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.search-pic {
+    width: 100px;
+    cursor: pointer;
+}
+
+.search-pic:hover {
+    width: 110px;
+}
+
+.search-results {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.search-name {
+    color: rgb(34, 34, 232);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: fantasy;
+    margin-left: 5px;
+}
+
+.search-name:hover {
+    font-size: x-large;
 }

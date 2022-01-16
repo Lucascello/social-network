@@ -82,3 +82,8 @@ module.exports.findOtherUsers = (val) => {
     const params = [val + "%"];
     return db.query(q, params);
 };
+
+module.exports.getLatestUsers = () => {
+    const q = "SELECT * FROM users ORDER BY id DESC LIMIT 4";
+    return db.query(q);
+};

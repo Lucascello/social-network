@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function FindUsers(props) {
     const [search, setSearch] = useState();
@@ -6,14 +6,26 @@ export default function FindUsers(props) {
 
     useEffect(() => {
         let abort = false;
-        fetch(`/users?search=${search}`)
-            .then((res) => res.json())
-            .then((users) => {
-                if (!abort) {
-                    console.log(users);
-                    setUsers(users);
-                }
-            });
+        console.log("useEffect mounted");
+        // console.log("value in the search:", search);
+        // console.log("users in the search:", users);
+        if (!search) {
+            fetch("/latestUsers")
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log("these are the latest users:", data);
+                    setUsers(data);
+                });
+        } else {
+            fetch(`/users/${search}`)
+                .then((res) => res.json())
+                .then((users) => {
+                    if (!abort) {
+                        console.log("users in the search", users);
+                        setUsers(users);
+                    }
+                });
+        }
         return () => {
             abort = true;
         };
@@ -21,11 +33,26 @@ export default function FindUsers(props) {
 
     return (
         <>
-            <h1>Find Other Users</h1>
-            <input onChange={(e) => setSearch(e.target.value)} />
-            <h3 onClick={props.toggleFindUserIsVisible} className="bio-h3">
-                Return To My Page
+            <h1 className="findUsers">Find Other Users</h1>
+            <h3
+                onClick={props.toggleFindUserIsVisible}
+                className="bio-h3-extra"
+            >
+                or Return To My Page
             </h3>
+            <br />
+            <input onChange={(e) => setSearch(e.target.value)} />
+            <br /> <br />
+            <span>
+                {users.map((user) => (
+                    <div className="search-results" key={user.id}>
+                        <img className="search-pic" src={user.url} />
+                        <h3 className="search-name">
+                            - {user.first} {user.last}
+                        </h3>
+                    </div>
+                ))}
+            </span>
         </>
     );
 }
