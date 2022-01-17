@@ -4,6 +4,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import FindUsers from "./findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import OtherProfile from "./otherProfile.js";
 
 export default class App extends Component {
     constructor() {
@@ -159,6 +160,9 @@ export default class App extends Component {
                                 toggleBioIsUpdated={this.toggleBioIsUpdated}
                             />
                         )}
+                    </Route>
+                    <Route path="/user/:id">
+                        <OtherProfile />
                     </Route>
                 </BrowserRouter>
             </>

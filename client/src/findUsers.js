@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function FindUsers() {
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState("");
     const [users, setUsers] = useState([]);
     const [title, setTitle] = useState();
 
@@ -55,10 +55,17 @@ export default function FindUsers() {
             <span className="search-span">
                 {users.map((user) => (
                     <div className="search-results" key={user.id}>
-                        <img className="search-pic" src={user.url} />
-                        <h3 className="search-name">
-                            - {user.first} {user.last}
-                        </h3>
+                        <Link
+                            onClick={() => {
+                                setSearch({ target: { value: "" } });
+                            }}
+                            to={`/user/${user.id}`}
+                        >
+                            <img className="search-pic" src={user.url} />
+                            <h3 className="search-name">
+                                - {user.first} {user.last}
+                            </h3>
+                        </Link>
                     </div>
                 ))}
             </span>
