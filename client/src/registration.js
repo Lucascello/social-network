@@ -49,7 +49,7 @@ export default class Registration extends Component {
                         error: "Something went wrong, please try again.",
                     });
                 } else {
-                    location.reload();
+                    location.replace("/");
                 }
                 // we want to render an error state
                 // IF the user registration got a successful response from the server, THEN

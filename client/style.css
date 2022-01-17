@@ -42,6 +42,11 @@ body {
 
 .close {
     width: 40px;
+    cursor: pointer;
+}
+
+.close:hover {
+    width: 45px;
 }
 
 .cool-styles {
@@ -71,6 +76,10 @@ body {
     flex-wrap: wrap;
     z-index: 2;
     overflow: hidden;
+}
+
+.upload-button {
+    cursor: pointer;
 }
 
 .uploader-h2 {
@@ -246,6 +255,7 @@ button {
 .search-pic {
     width: 100px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .search-pic:hover {

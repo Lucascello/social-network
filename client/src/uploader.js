@@ -50,7 +50,12 @@ export default class uploader extends Component {
                             name="file"
                             accept="image/*"
                         />
-                        <button onClick={this.uploadPic}>Upload</button>
+                        <button
+                            className="upload-button"
+                            onClick={this.uploadPic}
+                        >
+                            Upload
+                        </button>
                     </form>
                 </section>
             </>

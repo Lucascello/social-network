@@ -3,6 +3,7 @@ import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import FindUsers from "./findUsers";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor() {
@@ -82,60 +83,84 @@ export default class App extends Component {
     render() {
         return (
             <>
-                <section className="cool-styles">
-                    <div className="logout">
-                        <img
-                            src="social.png"
-                            alt="social network logo"
-                            id="homepage-logo"
-                        />
-                        <br />
-                        <a className="goodbye" href="/logout">
-                            Logout
-                        </a>
-                    </div>
+                <BrowserRouter>
+                    <section className="cool-styles">
+                        <div className="logout">
+                            <Link to="/">
+                                <img
+                                    src="social.png"
+                                    alt="social network logo"
+                                    id="homepage-logo"
+                                />
+                            </Link>
+                            {/* <img
+                                src="social.png"
+                                alt="social network logo"
+                                id="homepage-logo"
+                            /> */}
+                            <br />
+                            <a className="goodbye" href="/logout">
+                                Logout
+                            </a>
+                        </div>
 
-                    <div className="header-right">
-                        <h3
-                            onClick={this.toggleFindUserIsVisible}
-                            className="bio-h3"
-                        >
-                            Find Other Users
-                        </h3>
-                        <ProfilePic
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.url}
+                        <div className="header-right">
+                            {/* <h3
+                                onClick={this.toggleFindUserIsVisible}
+                                className="bio-h3"
+                            >
+                                Find Other Users
+                            </h3> */}
+                            <h3 className="bio-h3">
+                                <Link to="/find-other-users">
+                                    Find Other Users
+                                </Link>
+                            </h3>
+                            <Link to="/">
+                                <ProfilePic
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageUrl={this.state.url}
+                                    loggerFunc={this.logNameAndPic}
+                                />
+                            </Link>
+                        </div>
+                    </section>
+                    <hr></hr>
+                    <Route path="/find-other-users">
+                        <FindUsers />
+                    </Route>
+
+                    {/* {this.state.findUserIsVisible && (
+                        <FindUsers
+                            toggleFindUserIsVisible={
+                                this.toggleFindUserIsVisible
+                            }
+                            findUserIsVisible={this.state.findUserIsVisible}
+                        />
+                    )} */}
+
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
                             loggerFunc={this.logNameAndPic}
+                            toggleUploader={this.toggleUploader}
+                            uploadPicture={this.uploadPicture}
                         />
-                    </div>
-                </section>
-                <hr></hr>
-                {this.state.findUserIsVisible && (
-                    <FindUsers
-                        toggleFindUserIsVisible={this.toggleFindUserIsVisible}
-                        findUserIsVisible={this.state.findUserIsVisible}
-                    />
-                )}
-
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        loggerFunc={this.logNameAndPic}
-                        toggleUploader={this.toggleUploader}
-                        uploadPicture={this.uploadPicture}
-                    />
-                )}
-                {this.state.profileIsVisible && (
-                    <Profile
-                        favoriteSweet={this.state.favoriteSweet}
-                        url={this.state.url}
-                        first={this.state.first}
-                        last={this.state.last}
-                        bio={this.state.bio}
-                        toggleUploader={this.toggleUploader}
-                        toggleBioIsUpdated={this.toggleBioIsUpdated}
-                    />
-                )}
+                    )}
+                    <Route exact path="/">
+                        {this.state.profileIsVisible && (
+                            <Profile
+                                favoriteSweet={this.state.favoriteSweet}
+                                url={this.state.url}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bio={this.state.bio}
+                                toggleUploader={this.toggleUploader}
+                                toggleBioIsUpdated={this.toggleBioIsUpdated}
+                            />
+                        )}
+                    </Route>
+                </BrowserRouter>
             </>
         );
     }
