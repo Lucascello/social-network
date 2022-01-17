@@ -87,7 +87,7 @@ module.exports.updateUsersBio = (bio, id) => {
 };
 
 module.exports.findOtherUsers = (val) => {
-    const q = `SELECT * FROM users WHERE first ILIKE $1`;
+    const q = `SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1 LIMIT 20`;
     const params = [val + "%"];
     return db.query(q, params);
 };
