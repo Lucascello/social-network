@@ -191,16 +191,16 @@ app.post("/resetPassword.json", (req, res) => {
     });
 });
 
-app.get("/navigation.json", (req, res) => {
+app.get("/home.json", (req, res) => {
     const { userId } = req.session;
-    console.log("requested session for navigation :", userId);
+    console.log("requested session for home :", userId);
     db.getUserInfoId(userId)
         .then(({ rows }) => {
-            console.log("rows in /navigation.json :", rows);
+            console.log("rows in /home.json :", rows);
             res.json(rows[0]);
         })
         .catch((err) => {
-            console.log("Error in /navigation.json :", err);
+            console.log("Error in /home.json :", err);
         });
 
     // res.json({
@@ -257,7 +257,7 @@ app.get(`/api/user/:id`, (req, res) => {
     db.getUserInfoId(id)
         .then(({ rows }) => {
             console.log("rows in /user/:id.json :", rows[0]);
-            res.json(rows[0]);
+            res.json(rows[0] || null);
         })
         .catch((err) => {
             console.log("Error in set /user/:id.json :", err);

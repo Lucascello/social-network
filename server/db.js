@@ -71,20 +71,20 @@ module.exports.uploadProfilePic = (url, id) => {
     return db.query(q, params);
 };
 
-// module.exports.updateUsersBio = (bio, id) => {
-//     const q = `UPDATE users SET bio = $1 WHERE id = $2 RETURNING bio`;
-//     const params = [bio, id];
-//     return db.query(q, params);
-// };
-
 module.exports.updateUsersBio = (bio, id) => {
-    const q = `INSERT INTO users 
-                VALUES ($1, $2)
-                ON CONFLICT (id)
-                DO UPDATE SET bio = $1 RETURNING bio`;
+    const q = `UPDATE users SET bio = $1 WHERE id = $2 RETURNING bio`;
     const params = [bio, id];
     return db.query(q, params);
 };
+
+// module.exports.updateUsersBio = (bio, id) => {
+//     const q = `INSERT INTO users (bio, id)
+//                 VALUES ($1, $2)
+//                 ON CONFLICT (id)
+//                 DO UPDATE SET bio = $1 RETURNING bio`;
+//     const params = [bio, id];
+//     return db.query(q, params);
+// };
 
 module.exports.findOtherUsers = (val) => {
     const q = `SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1 LIMIT 20`;

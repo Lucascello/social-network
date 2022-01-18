@@ -18,6 +18,7 @@ export default class BioEditor extends Component {
     toggleBioIsVisible() {
         this.setState({
             bioIsVisible: !this.state.bioIsVisible,
+            bio: this.props.bio,
         });
     }
 

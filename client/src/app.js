@@ -14,10 +14,11 @@ export default class App extends Component {
             profileIsVisible: true,
             findUserIsVisible: false,
             favoriteSweet: "🧁",
-            url: "url",
-            first: "first",
-            last: "last:",
-            bio: "bio",
+            url: "",
+            first: "",
+            last: "",
+            bio: "",
+            id: "",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNameAndPic = this.logNameAndPic.bind(this);
@@ -30,10 +31,10 @@ export default class App extends Component {
         console.log("App component mounted");
         // Make fetch request to get data for currently logged in user
         // and store this data in the component state
-        fetch("/navigation.json")
+        fetch("/home.json")
             .then((response) => response.json())
             .then((data) => {
-                console.log("data on the navigation: ", data);
+                console.log("data on home: ", data);
                 this.setState({
                     id: data.id,
                     first: data.first,
@@ -44,7 +45,7 @@ export default class App extends Component {
                 });
             })
             .catch((err) => {
-                console.log("error on the navigation :", err);
+                console.log("error on home :", err);
             });
     }
 
@@ -89,7 +90,7 @@ export default class App extends Component {
                         <div className="logout">
                             <Link to="/">
                                 <img
-                                    src="social.png"
+                                    src="../social.png"
                                     alt="social network logo"
                                     id="homepage-logo"
                                 />
@@ -162,7 +163,7 @@ export default class App extends Component {
                         )}
                     </Route>
                     <Route path="/user/:id">
-                        <OtherProfile />
+                        <OtherProfile ownId={this.state.id} />
                     </Route>
                 </BrowserRouter>
             </>
