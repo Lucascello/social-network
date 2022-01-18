@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useParams, useHistory } from "react-router";
+import Friendbutton from "./friendbutton";
 
 export default function OtherProfile(props) {
     const history = useHistory();
@@ -47,18 +48,11 @@ export default function OtherProfile(props) {
                     </h1>
                     <img className="other-prof" src={user.url} />
                     <h3>{user.bio}</h3>
+                    <Friendbutton />
+                    <br />
+                    <br />
                 </div>
             )}
         </>
     );
-}
-
-{
-    /* <h1>
-                This is {user.first} {user.last}
-            </h1>
-            <div>
-                <img src={user.url} />
-                <h3>{user.bio}</h3>
-            </div> */
 }

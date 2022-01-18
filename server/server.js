@@ -264,6 +264,47 @@ app.get(`/api/user/:id`, (req, res) => {
         });
 });
 
+app.get(`/api/frienRequest/:id`, (req, res) => {
+    const loggedInUser = req.session.userId;
+    // const otherUser = req.params.id;
+    console.log("Req.session.userId for Friendrequest", req.session.userId);
+    db.selectFriends(loggedInUser /*, otherUser*/)
+        .then(({ rows }) => {
+            console.log("what are the rows in frienRequest", rows);
+            if (!rows.length) {
+                res.json("Add Friend");
+            } else if (rows[0].accepted === true) {
+                res.json("End Friendship");
+            } else if (
+                rows[0].accepted === false &&
+                loggedInUser === rows[0].sender_id
+            ) {
+                res.json("Cancel Request");
+            } else if (
+                rows[0].accepted === false &&
+                loggedInUser === rows[0].recipient_id
+            ) {
+                res.json("Accept Friend Request");
+            }
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
+app.post(`/api/add-friend/:id`, (req, res) => {
+    const loggedInUser = req.session.userId;
+    const otherUser = req.params.id;
+    db.startFriendship(loggedInUser, otherUser)
+        .then(({ rows }) => {
+            console.log("What are the rows in add-friend :", rows);
+            res.json(rows[0].accepted);
+        })
+        .catch((err) => {
+            console.log("add-friend failed:", err);
+        });
+});
+
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {
