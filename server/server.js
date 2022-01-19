@@ -266,9 +266,9 @@ app.get(`/api/user/:id`, (req, res) => {
 
 app.get(`/api/frienRequest/:id`, (req, res) => {
     const loggedInUser = req.session.userId;
-    // const otherUser = req.params.id;
+    const otherUser = req.params.id;
     console.log("Req.session.userId for Friendrequest", req.session.userId);
-    db.selectFriends(loggedInUser /*, otherUser*/)
+    db.selectFriends(loggedInUser, otherUser)
         .then(({ rows }) => {
             console.log("what are the rows in frienRequest", rows);
             if (!rows.length) {
@@ -302,6 +302,32 @@ app.post(`/api/add-friend/:id`, (req, res) => {
         })
         .catch((err) => {
             console.log("add-friend failed:", err);
+        });
+});
+
+app.post(`/api/cancel-friend-request/:id`, (req, res) => {
+    const loggedInUser = req.session.userId;
+    const otherUser = req.params.id;
+    db.endFriendship(loggedInUser, otherUser)
+        .then(({ rows }) => {
+            console.log("What are the rows in cancel-friend-request :", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("cancel-friend-request failed:", err);
+        });
+});
+
+app.post(`/api/accept-friend-request/:id`, (req, res) => {
+    const loggedInUser = req.session.userId;
+    const otherUser = req.params.id;
+    db.acceptFriendship(loggedInUser, otherUser)
+        .then(({ rows }) => {
+            console.log("What are the rows in accept-friend-request :", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("cancel-friend-request failed:", err);
         });
 });
 

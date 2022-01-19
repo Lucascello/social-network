@@ -117,7 +117,7 @@ module.exports.endFriendship = (sender_id, recipient_id) => {
     return db.query(q, params);
 };
 
-module.exports.decideOnFriendship = (sender_id, recipient_id) => {
+module.exports.acceptFriendship = (sender_id, recipient_id) => {
     const q = `UPDATE friendships SET accepted = true WHERE (sender_id = $1 AND recipient_id = $2) OR (sender_id = $2 AND recipient_id = $1) RETURNING sender_id, recipient_id`;
     const params = [sender_id, recipient_id];
     return db.query(q, params);

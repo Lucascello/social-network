@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 export default function OtherProfile() {
-    const [button, setButton] = useState("");
+    const [button, setButton] = useState();
     const { id } = useParams();
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function OtherProfile() {
             .catch((err) => {
                 console.log("Error in adding friend (button)", err);
             });
-    }, [id]);
+    }, []);
 
     function decisionOnFrienship() {
         if (button === "Add Friend") {
@@ -29,11 +29,53 @@ export default function OtherProfile() {
                         "Whats the response to the add friend button?",
                         response
                     );
-                    setButton(response.accepted);
+                    if (response === false) {
+                        setButton("Cancel Request");
+                    }
                 });
-        } 
-        // else if (button === "Cancel Request") {
-        // }
+        } else if (button === "Cancel Request") {
+            fetch(`/api/cancel-friend-request/${id}`, {
+                method: "POST",
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    console.log(
+                        "Whats the response to the cancel friend button?",
+                        response
+                    );
+                    if (!response.length) {
+                        setButton("Add Friend");
+                    }
+                });
+        } else if (button === "Accept Friend Request") {
+            fetch(`/api/accept-friend-request/${id}`, {
+                method: "POST",
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    console.log(
+                        "Whats the response to the accept friend button?",
+                        response
+                    );
+                    if (response) {
+                        setButton("End Friendship");
+                    }
+                });
+        } else if (button === "End Friendship") {
+            fetch(`/api/cancel-friend-request/${id}`, {
+                method: "POST",
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    console.log(
+                        "Whats the response to the cancel friend button?",
+                        response
+                    );
+                    if (!response.length) {
+                        setButton("Add Friend");
+                    }
+                });
+        }
     }
 
     return (

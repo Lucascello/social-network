@@ -139,7 +139,7 @@ h4 {
 
 button {
     margin-top: 0.5rem;
-    width: 5.5rem;
+    width: fit-content;
     padding: 0.3rem;
     align-self: center;
     background-color: #46116e;
