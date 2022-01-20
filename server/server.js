@@ -264,6 +264,18 @@ app.get(`/api/user/:id`, (req, res) => {
         });
 });
 
+app.get("/api/friends-and-wannabees", (req, res) => {
+    console.log("req.session.userId in wannabees", req.session.userId);
+    db.getFriendsAndWannabeesByUserId(req.session.userId)
+        .then(({ rows }) => {
+            console.log("What are the rows in wannabee :", rows);
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
 app.get(`/api/frienRequest/:id`, (req, res) => {
     const loggedInUser = req.session.userId;
     const otherUser = req.params.id;

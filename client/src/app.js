@@ -5,6 +5,7 @@ import Profile from "./profile";
 import FindUsers from "./findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import OtherProfile from "./otherProfile.js";
+import FriendsAndWannabees from "./friendsAndWannabees.js";
 
 export default class App extends Component {
     constructor() {
@@ -113,11 +114,20 @@ export default class App extends Component {
                             >
                                 Find Other Users
                             </h3> */}
-                            <h3 className="bio-h3">
-                                <Link to="/find-other-users">
-                                    Find Other Users
-                                </Link>
-                            </h3>
+                            <div>
+                                <h3 className="bio-h3">
+                                    <Link to="/find-other-users">
+                                        Find Other Users
+                                    </Link>
+                                </h3>
+                                <br />
+                                <h3 className="bio-h3">
+                                    <Link to="/friends-and-requests">
+                                        Friends and Requests
+                                    </Link>
+                                </h3>
+                            </div>
+
                             <Link to="/">
                                 <ProfilePic
                                     first={this.state.first}
@@ -164,6 +174,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/user/:id">
                         <OtherProfile ownId={this.state.id} />
+                    </Route>
+                    <Route path="/friends-and-requests">
+                        <FriendsAndWannabees />
                     </Route>
                 </BrowserRouter>
             </>

@@ -298,3 +298,18 @@ button {
     flex-direction: column;
     align-items: center;
 }
+
+.friend-request {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.request-pic {
+    width: 200px;
+}
+
+.request-text {
+    font-family: fantasy;
+}

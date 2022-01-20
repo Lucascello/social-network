@@ -122,3 +122,12 @@ module.exports.acceptFriendship = (sender_id, recipient_id) => {
     const params = [sender_id, recipient_id];
     return db.query(q, params);
 };
+
+module.exports.getFriendsAndWannabeesByUserId = (userId) => {
+    const q = `SELECT users.id, users.first, users.last, users.url, accepted
+            FROM friendships
+            JOIN users ON (accepted = false AND recipient_id = $1 AND sender_id = users.id) OR
+            (accepted = true AND recipient_id = $1 AND sender_id = users.id) OR
+            (accepted = true AND recipient_id = users.id AND sender_id = $1);`;
+    return db.query(q, [userId]);
+};
