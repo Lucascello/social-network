@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
     makeFriend,
+    endFriendship,
     receiveFriendsAndWannabees,
 } from "./redux/friends-and-wannabees/slice.js";
 import { useEffect } from "react";
@@ -62,10 +63,8 @@ export default function FriendsAndWannabees() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(
-                    "Whats the data to  handleRejection?",
-                    data
-                );
+                console.log("Whats the data to handleRejection?", data);
+                dispatch(endFriendship(id));
             });
     }
 

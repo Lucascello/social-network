@@ -14,6 +14,13 @@ export default function friendsReducer(friendsAndWannabees = null, action) {
             }
         );
         return newFriendsAndWannabees;
+    } else if (action.type === "friends-and-wannabees/end") {
+        const newFriendsAndWannabees = friendsAndWannabees.filter(
+            (friendAndWannabees) => {
+                return friendAndWannabees.id === !action.payload.id;
+            }
+        );
+        return newFriendsAndWannabees;
     }
 
     return friendsAndWannabees;
@@ -31,5 +38,12 @@ export function receiveFriendsAndWannabees(friendsAndWannabees) {
     return {
         type: "friendsAndWannabees/receivedFriendsAndWannabees",
         payload: { friendsAndWannabees },
+    };
+}
+
+export function endFriendship(id) {
+    return {
+        type: "friends-and-wannabees/end",
+        payload: { id },
     };
 }
