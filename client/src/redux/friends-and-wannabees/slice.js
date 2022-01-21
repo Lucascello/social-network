@@ -17,7 +17,7 @@ export default function friendsReducer(friendsAndWannabees = null, action) {
     } else if (action.type === "friends-and-wannabees/end") {
         const newFriendsAndWannabees = friendsAndWannabees.filter(
             (friendAndWannabees) => {
-                return friendAndWannabees.id === !action.payload.id;
+                return friendAndWannabees.id !== action.payload.id;
             }
         );
         return newFriendsAndWannabees;

@@ -19,11 +19,16 @@ export default function FriendsAndWannabees() {
             )
     );
 
-    const currentFriends = useSelector((state) =>
-        state.friendsAndWannabees.filter((friendship) => friendship.accepted)
+    const currentFriends = useSelector(
+        (state) =>
+            state.friendsAndWannabees &&
+            state.friendsAndWannabees.filter(
+                (friendship) => friendship.accepted
+            )
     );
 
     console.log("wannabees: ", wannabees);
+    console.log("currentFriends: ", currentFriends);
     // Select the Friends from the state
     // ...
 
@@ -103,7 +108,7 @@ export default function FriendsAndWannabees() {
                 </h1>
             </div>
             <br />
-            <div>
+            <div className="friend-request">
                 {currentFriends &&
                     currentFriends.map((currentFriend) => {
                         return (
