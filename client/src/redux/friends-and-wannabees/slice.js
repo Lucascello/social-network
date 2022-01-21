@@ -3,21 +3,21 @@ export default function friendsReducer(friendsAndWannabees = null, action) {
         friendsAndWannabees = action.payload.friendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/accept") {
         const newFriendsAndWannabees = friendsAndWannabees.map(
-            (friendAndWannabees) => {
-                if (friendAndWannabees.id === action.payload.id) {
+            (wannabeesandfriends) => {
+                if (wannabeesandfriends.id === action.payload.id) {
                     return {
-                        ...friendAndWannabees,
+                        ...wannabeesandfriends,
                         accepted: true,
                     };
                 }
-                return friendAndWannabees;
+                return wannabeesandfriends;
             }
         );
         return newFriendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/end") {
         const newFriendsAndWannabees = friendsAndWannabees.filter(
-            (friendAndWannabees) => {
-                return friendAndWannabees.id !== action.payload.id;
+            (wannabeesandfriends) => {
+                return wannabeesandfriends.id !== action.payload.id;
             }
         );
         return newFriendsAndWannabees;

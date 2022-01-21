@@ -91,11 +91,22 @@ export default function FriendsAndWannabees() {
                                     src={wannabee.url}
                                 />
                                 {wannabee.first} {wannabee.last}
-                                <button
-                                    onClick={() => handleAccept(wannabee.id)}
-                                >
-                                    Accept Friend Request
-                                </button>
+                                <div>
+                                    <button
+                                        onClick={() =>
+                                            handleAccept(wannabee.id)
+                                        }
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            handleRejection(wannabee.id)
+                                        }
+                                    >
+                                        Reject
+                                    </button>
+                                </div>
                                 <br />
                             </div>
                         );

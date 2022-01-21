@@ -4,7 +4,9 @@ body {
 }
 
 .social {
-    width: 300px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20%;
 }
 
 .goodbye {
@@ -142,9 +144,10 @@ button {
     width: fit-content;
     padding: 0.3rem;
     align-self: center;
-    background-color: #46116e;
+    background-color: #a234f6;
     font-size: larger;
     border-radius: 10%;
+    font-weight: bolder;
 }
 
 .login {
@@ -266,6 +269,7 @@ button {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding: 30px;
 }
 
 .search-name {
@@ -312,4 +316,12 @@ button {
 
 .request-text {
     font-family: fantasy;
+}
+
+.search-span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }

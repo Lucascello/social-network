@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const http = require("http");
 const compression = require("compression");
 const path = require("path");
 const db = require("./db");
@@ -9,6 +10,18 @@ const { sendEmail } = require("./ses.js");
 const cryptoRandom = require("crypto-random-string");
 const { uploader } = require("./upload");
 const s3 = require("./s3");
+const SocketIOServer = require("socket.io");
+
+const server = http.createServer(app);
+
+const io = SocketIOServer(server, {
+    allowRequest: (req, callback) => {
+        callback(
+            null,
+            req.headers.referrer.startsWith("http://localhost:3000")
+        );
+    },
+});
 
 let sessionSecret = process.env.COOKIE_SECRET;
 
@@ -346,9 +359,14 @@ app.post(`/api/accept-friend-request/:id`, (req, res) => {
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {
+    console.log("*********************");
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    console.log("New Socket Conenction", socket.id);
 });
