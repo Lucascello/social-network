@@ -3,6 +3,7 @@ import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import FindUsers from "./findUsers";
+import Chat from "./chat";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import OtherProfile from "./otherProfile.js";
 import FriendsAndWannabees from "./friendsAndWannabees.js";
@@ -177,6 +178,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/friends-and-requests">
                         <FriendsAndWannabees />
+                    </Route>
+                    <Route path="/chat">
+                        <Chat />
                     </Route>
                 </BrowserRouter>
             </>

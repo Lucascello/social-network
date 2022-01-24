@@ -325,3 +325,32 @@ button {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
+.chat {
+    width: 7vw;
+}
+
+.messages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+}
+
+.chat-container {
+    width: 50vw;
+    height: 60vh;
+    overflow-y: scroll;
+    font-size: larger;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: rgb(146, 139, 218);
+    border-radius: 20%;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

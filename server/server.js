@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const http = require("http");
 const compression = require("compression");
 const path = require("path");
 const db = require("./db");
@@ -10,17 +9,12 @@ const { sendEmail } = require("./ses.js");
 const cryptoRandom = require("crypto-random-string");
 const { uploader } = require("./upload");
 const s3 = require("./s3");
-const SocketIOServer = require("socket.io");
+const moment = require("moment");
 
-const server = http.createServer(app);
-
-const io = SocketIOServer(server, {
-    allowRequest: (req, callback) => {
-        callback(
-            null,
-            req.headers.referrer.startsWith("http://localhost:3000")
-        );
-    },
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
 
 let sessionSecret = process.env.COOKIE_SECRET;
@@ -29,20 +23,32 @@ if (!sessionSecret) {
     sessionSecret = require("./secrets").COOKIE_SECRET;
 }
 
+const cookieSessionMiddleware = cookieSession({
+    secret: sessionSecret,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// app.use(
+//     cookieSession({
+//         secret: sessionSecret,
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//         sameSite: true,
+//     })
+// );
+
 ////////////////prevent clickjacking/////////////////////////////
 app.use((req, res, next) => {
     res.setHeader("x-frame-options", "deny");
     next();
 });
 //////////////////////////////////////////////////////////////////
-
-app.use(
-    cookieSession({
-        secret: sessionSecret,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
 
 app.use(compression());
 
@@ -359,7 +365,6 @@ app.post(`/api/accept-friend-request/:id`, (req, res) => {
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {
-    console.log("*********************");
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
@@ -367,6 +372,47 @@ server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-io.on("connection", (socket) => {
-    console.log("New Socket Conenction", socket.id);
+io.on("connection", function (socket) {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+    const userId = socket.request.session.userId;
+    console.log("Socket****************");
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            console.log("What are my rows in io.on:", rows);
+            rows.forEach((row) => {
+                row.created_at = moment(row.created_at).format(
+                    "MMMM Do YYYY, h:mm:ss a"
+                );
+                console.log(
+                    "My updated Date in the comments: ",
+                    row.created_at
+                );
+            });
+            socket.emit("chatMessages", rows);
+        })
+        .catch((error) => {
+            console.log("failed to get the chat messages", error);
+        });
+
+    socket.on("newMessage", (message) => {
+        console.log("Whats the new message: ", message);
+        db.addMessagesToTheChat(message, userId).then(({ rows }) => {
+            console.log("My rows in socket.on", rows);
+            rows.forEach((row) => {
+                row.created_at = moment(row.created_at).format(
+                    "MMMM Do YYYY, h:mm:ss a"
+                );
+                console.log(
+                    "My updated Date in the new comment: ",
+                    row.created_at
+                );
+            });
+        });
+        // add message to DB
+        // get users name and image url from DB
+        // emit to all connected clients
+        io.emit("test", "MESSAGE received");
+    });
 });

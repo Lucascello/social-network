@@ -131,3 +131,18 @@ module.exports.getFriendsAndWannabeesByUserId = (userId) => {
             (accepted = true AND recipient_id = users.id AND sender_id = $1);`;
     return db.query(q, [userId]);
 };
+
+module.exports.getLastTenChatMessages = () => {
+    const q = `SELECT user_id, message, chat_messages.created_at, first, last, url
+                FROM chat_messages
+                JOIN users ON user_id = users.id
+                ORDER BY created_at DESC
+                LIMIT 10`;
+    return db.query(q);
+};
+
+module.exports.addMessagesToTheChat = (message, user_id) => {
+    const q = `INSERT INTO chat_messages (message, user_id) Values ($1, $2) RETURNING message, user_id, created_at`;
+    const params = [message, user_id];
+    return db.query(q, params);
+};
