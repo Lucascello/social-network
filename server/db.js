@@ -38,6 +38,11 @@ WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
     return db.query(q, [email]);
 };
 
+module.exports.getUsersNameAndImage = (id) => {
+    const q = "SELECT first, last, url FROM users WHERE id = $1";
+    return db.query(q, [id]);
+};
+
 module.exports.getPasswords = (email) => {
     const q = "SELECT id, password FROM users WHERE email = $1";
     return db.query(q, [email]);

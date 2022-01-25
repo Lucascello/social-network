@@ -58,6 +58,7 @@ body {
     border-bottom: mintcream;
     background-color: rgba(207, 137, 38, 0.867);
     margin: 0;
+    align-items: center;
 }
 
 .upload {
@@ -270,6 +271,10 @@ button {
     align-items: center;
     margin-bottom: 10px;
     padding: 30px;
+}
+
+.navigation {
+    display: flex;
 }
 
 .search-name {

@@ -89,55 +89,58 @@ export default class App extends Component {
             <>
                 <BrowserRouter>
                     <section className="cool-styles">
-                        <div className="logout">
-                            <Link to="/">
-                                <img
-                                    src="../social.png"
-                                    alt="social network logo"
-                                    id="homepage-logo"
-                                />
-                            </Link>
-                            {/* <img
+                        <img
+                            src="../social.png"
+                            alt="social network logo"
+                            id="homepage-logo"
+                        />
+                        {/* <img
                                 src="social.png"
                                 alt="social network logo"
                                 id="homepage-logo"
                             /> */}
-                            <br />
+                        <br />
+                        <div className="navigation">
                             <a className="goodbye" href="/logout">
                                 Logout
                             </a>
-                        </div>
+                            <h3 className="bio-h3">
+                                <Link to="/chat">Chat</Link>
+                            </h3>
+                            <br />
 
-                        <div className="header-right">
                             {/* <h3
                                 onClick={this.toggleFindUserIsVisible}
                                 className="bio-h3"
                             >
                                 Find Other Users
                             </h3> */}
-                            <div>
-                                <h3 className="bio-h3">
-                                    <Link to="/find-other-users">
-                                        Find Other Users
-                                    </Link>
-                                </h3>
-                                <br />
-                                <h3 className="bio-h3">
-                                    <Link to="/friends-and-requests">
-                                        Friends and Requests
-                                    </Link>
-                                </h3>
-                            </div>
 
-                            <Link to="/">
-                                <ProfilePic
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    imageUrl={this.state.url}
-                                    loggerFunc={this.logNameAndPic}
-                                />
-                            </Link>
+                            <h3 className="bio-h3">
+                                <Link to="/find-other-users">
+                                    Find Other Users
+                                </Link>
+                            </h3>
+                            <br />
+                            <h3 className="bio-h3">
+                                <Link to="/">Home</Link>
+                            </h3>
+                            <br />
+                            <h3 className="bio-h3">
+                                <Link to="/friends-and-requests">
+                                    Friends and Requests
+                                </Link>
+                            </h3>
                         </div>
+
+                        <Link to="/">
+                            <ProfilePic
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.url}
+                                loggerFunc={this.logNameAndPic}
+                            />
+                        </Link>
                     </section>
                     <hr></hr>
                     <Route path="/find-other-users">

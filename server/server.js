@@ -401,18 +401,24 @@ io.on("connection", function (socket) {
         db.addMessagesToTheChat(message, userId).then(({ rows }) => {
             console.log("My rows in socket.on", rows);
             rows.forEach((row) => {
-                row.created_at = moment(row.created_at).format(
+                const created_at = moment(row.created_at).format(
                     "MMMM Do YYYY, h:mm:ss a"
                 );
                 console.log(
                     "My updated Date in the new comment: ",
                     row.created_at
                 );
+                // add message to DB
+                // get users name and image url from DB
+                // emit to all connected clients
+                console.log("rows[0]", rows[0]);
+                db.getUsersNameAndImage(rows[0].user_id).then(({ rows }) => {
+                    console.log("rows from getUsersNameAndImage", rows);
+                    console.log("new chat message to be posted:", message);
+                    const newChatMessage = { ...rows[0], message, created_at };
+                    io.emit("chatMessage", newChatMessage);
+                });
             });
         });
-        // add message to DB
-        // get users name and image url from DB
-        // emit to all connected clients
-        io.emit("test", "MESSAGE received");
     });
 });

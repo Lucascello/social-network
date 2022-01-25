@@ -37,7 +37,8 @@ export default function Chat() {
                                     </div>
                                     {msgs.message}
                                     <br /> <br />
-                                    {msgs.first} {msgs.last} on{" "}
+                                    {msgs.first} {msgs.last}
+                                    <br />
                                     {msgs.created_at}
                                 </div>
                                 <br />
