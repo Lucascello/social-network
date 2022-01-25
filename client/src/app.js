@@ -99,39 +99,32 @@ export default class App extends Component {
                                 alt="social network logo"
                                 id="homepage-logo"
                             /> */}
-                        <br />
                         <div className="navigation">
                             <a className="goodbye" href="/logout">
-                                Logout
+                                <b>Logout</b>
                             </a>
-                            <h3 className="bio-h3">
-                                <Link to="/chat">Chat</Link>
-                            </h3>
-                            <br />
-
-                            {/* <h3
+                        </div>
+                        <h3 className="bio-h3">
+                            <Link to="/">Home</Link>
+                        </h3>
+                        <h3 className="bio-h3">
+                            <Link to="/chat">Chat</Link>
+                        </h3>
+                        {/* <h3
                                 onClick={this.toggleFindUserIsVisible}
                                 className="bio-h3"
                             >
                                 Find Other Users
                             </h3> */}
 
-                            <h3 className="bio-h3">
-                                <Link to="/find-other-users">
-                                    Find Other Users
-                                </Link>
-                            </h3>
-                            <br />
-                            <h3 className="bio-h3">
-                                <Link to="/">Home</Link>
-                            </h3>
-                            <br />
-                            <h3 className="bio-h3">
-                                <Link to="/friends-and-requests">
-                                    Friends and Requests
-                                </Link>
-                            </h3>
-                        </div>
+                        <h3 className="bio-h3">
+                            <Link to="/find-other-users">Find Other Users</Link>
+                        </h3>
+                        <h3 className="bio-h3">
+                            <Link to="/friends-and-requests">
+                                Friends and Requests
+                            </Link>
+                        </h3>
 
                         <Link to="/">
                             <ProfilePic

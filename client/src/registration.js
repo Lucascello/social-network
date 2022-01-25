@@ -75,7 +75,6 @@ export default class Registration extends Component {
                         <h2 style={{ color: "red" }}>{this.state.error}</h2>
                     )}
                 </div>
-
                 <form>
                     <h3 className="login">
                         Already a member?
@@ -138,6 +137,7 @@ export default class Registration extends Component {
                         Register
                     </button>
                 </form>
+                <br /> <br />
             </>
         );
     }

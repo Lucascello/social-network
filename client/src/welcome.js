@@ -16,6 +16,7 @@ export default function Welcome() {
                     alt="logo"
                 /> */}
             </header>
+            <hr></hr>
             <main>
                 <BrowserRouter>
                     <div>

@@ -1,16 +1,16 @@
 body {
-    background-color: rgb(128, 128, 188);
+    background-image: linear-gradient(to right, #8360c3, #2ebf91);
     margin: 0;
 }
 
 .social {
-    width: fit-content;
-    height: fit-content;
+    width: 10vw;
+    height: 10vw;
     border-radius: 20%;
 }
 
 .goodbye {
-    color: blue;
+    color: rgb(66, 15, 88);
     text-decoration: underline;
     cursor: pointer;
     grid-column-start: 3;
@@ -18,12 +18,6 @@ body {
     grid-row-start: 3;
     font-size: larger;
     margin-left: 5px;
-}
-
-.goodbye:hover {
-    color: rgb(34, 34, 232);
-    font-size: x-large;
-    font-style: inherit;
 }
 
 .logout {
@@ -34,12 +28,11 @@ body {
 
 .profile {
     border-radius: 50%;
-    width: 150px;
+    object-fit: cover;
+    height: 10rem;
+    width: 10rem;
     cursor: pointer;
-}
-
-.profile:hover {
-    width: 160px;
+    overflow: hidden;
 }
 
 .close {
@@ -47,18 +40,17 @@ body {
     cursor: pointer;
 }
 
-.close:hover {
-    width: 45px;
-}
-
 .cool-styles {
-    margin: 30px;
+    margin: 20px;
     display: flex;
     justify-content: space-between;
-    border-bottom: mintcream;
-    background-color: rgba(207, 137, 38, 0.867);
-    margin: 0;
     align-items: center;
+}
+
+#homepage-logo {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 20%;
 }
 
 .upload {
@@ -94,7 +86,6 @@ h1 {
 }
 
 .header {
-    background-color: rgba(207, 137, 38, 0.867);
     padding-bottom: 1rem;
     margin: 0;
     display: flex;
@@ -145,7 +136,11 @@ button {
     width: fit-content;
     padding: 0.3rem;
     align-self: center;
-    background-color: #a234f6;
+    background: linear-gradient(
+        90deg,
+        hsla(134, 45%, 69%, 1) 0%,
+        hsla(153, 33%, 61%, 1) 100%
+    );
     font-size: larger;
     border-radius: 10%;
     font-weight: bolder;
@@ -158,10 +153,6 @@ button {
 .profile-pic {
     width: 300px;
     cursor: pointer;
-}
-
-.profile-pic:hover {
-    width: 310px;
 }
 
 .main-container {
@@ -181,6 +172,7 @@ button {
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 4;
+    border-radius: 5%;
 }
 
 .profile-h1 {
@@ -201,18 +193,12 @@ button {
 }
 
 .bio-h3 {
-    color: blue;
     text-decoration: underline;
     cursor: pointer;
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 3;
     margin-right: 5px;
-}
-
-.bio-h3:hover {
-    color: rgb(34, 34, 232);
-    font-size: x-large;
 }
 
 .bio-h3-extra {
@@ -224,11 +210,6 @@ button {
     grid-row-start: 3;
     margin-left: 5px;
     display: inline;
-}
-
-.bio-h3-extra:hover {
-    color: rgb(34, 34, 232);
-    font-size: x-large;
 }
 
 .findUsers {
@@ -257,13 +238,12 @@ button {
 }
 
 .search-pic {
-    width: 100px;
+    object-fit: cover;
+    width: 10rem;
+    height: 10rem;
     cursor: pointer;
     margin-left: 10px;
-}
-
-.search-pic:hover {
-    width: 110px;
+    border-radius: 20%;
 }
 
 .search-results {
@@ -285,12 +265,9 @@ button {
     margin-left: 5px;
 }
 
-.search-name:hover {
-    font-size: x-large;
-}
-
 .other-prof {
     width: 300px;
+    border-radius: 10%;
 }
 
 .user-error {
@@ -317,6 +294,7 @@ button {
 
 .request-pic {
     width: 200px;
+    border-radius: 20%;
 }
 
 .request-text {
@@ -332,7 +310,10 @@ button {
 }
 
 .chat {
+    object-fit: cover;
     width: 7vw;
+    height: 12vh;
+    border-radius: 10%;
 }
 
 .messages {
@@ -343,14 +324,14 @@ button {
 }
 
 .chat-container {
-    width: 50vw;
+    width: 40vw;
     height: 60vh;
     overflow-y: scroll;
     font-size: larger;
     display: flex;
     flex-direction: column-reverse;
-    background-color: rgb(146, 139, 218);
-    border-radius: 20%;
+    border: 3px solid rgb(93, 87, 157);
+    border-radius: 10%;
     align-items: center;
 }
 
