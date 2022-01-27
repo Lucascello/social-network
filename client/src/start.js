@@ -28,9 +28,3 @@ fetch("/user/id.json")
             );
         }
     });
-
-// ReactDOM.render(<HelloWorld />, document.querySelector("main"));
-
-// function HelloWorld() {
-//     return <div>Hello, World!</div>;
-// }

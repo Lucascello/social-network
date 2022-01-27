@@ -17,6 +17,7 @@ const io = require("socket.io")(server, {
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
 
+// Midleware
 let sessionSecret = process.env.COOKIE_SECRET;
 
 if (!sessionSecret) {
@@ -56,11 +57,118 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
+/////////////////////////////////// get routes ///////////////////////////////////////////
+
 app.get("/user/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
     });
 });
+
+app.get("/home.json", (req, res) => {
+    const { userId } = req.session;
+    console.log("requested session for home :", userId);
+    db.getUserInfoId(userId)
+        .then(({ rows }) => {
+            console.log("rows in /home.json :", rows);
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("Error in /home.json :", err);
+        });
+
+    // res.json({
+    //     userId: req.session.userId,
+    // });
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
+
+app.get("/users/:userSearch", (req, res) => {
+    console.log(
+        "Am I getting any users for the search?:",
+        req.params.userSearch
+    );
+    db.findOtherUsers(req.params.userSearch)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("error in userSearch :", error);
+        });
+});
+
+app.get("/latestUsers", (req, res) => {
+    db.getLatestUsers(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
+app.get(`/api/user/:id`, (req, res) => {
+    console.log("req.params to go to other users page", req.params);
+    const { id } = req.params;
+    db.getUserInfoId(id)
+        .then(({ rows }) => {
+            console.log("rows in /user/:id.json :", rows[0]);
+            res.json(rows[0] || null);
+        })
+        .catch((err) => {
+            console.log("Error in set /user/:id.json :", err);
+        });
+});
+
+app.get("/api/friends-and-wannabees", (req, res) => {
+    console.log("req.session.userId in wannabees", req.session.userId);
+    db.getFriendsAndWannabeesByUserId(req.session.userId)
+        .then(({ rows }) => {
+            console.log("What are the rows in wannabee :", rows);
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
+app.get(`/api/frienRequest/:id`, (req, res) => {
+    const loggedInUser = req.session.userId;
+    const otherUser = req.params.id;
+    console.log("Req.session.userId for Friendrequest", req.session.userId);
+    db.selectFriends(loggedInUser, otherUser)
+        .then(({ rows }) => {
+            console.log("what are the rows in frienRequest", rows);
+            if (!rows.length) {
+                res.json("Add Friend");
+            } else if (rows[0].accepted === true) {
+                res.json("End Friendship");
+            } else if (
+                rows[0].accepted === false &&
+                loggedInUser === rows[0].sender_id
+            ) {
+                res.json("Cancel Request");
+            } else if (
+                rows[0].accepted === false &&
+                loggedInUser === rows[0].recipient_id
+            ) {
+                res.json("Accept Friend Request");
+            }
+        })
+        .catch((error) => {
+            console.log("didn't find any users:", error);
+        });
+});
+
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+});
+
+///////////////////////////////////// post routes ///////////////////////////////////////
 
 app.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
@@ -210,23 +318,6 @@ app.post("/resetPassword.json", (req, res) => {
     });
 });
 
-app.get("/home.json", (req, res) => {
-    const { userId } = req.session;
-    console.log("requested session for home :", userId);
-    db.getUserInfoId(userId)
-        .then(({ rows }) => {
-            console.log("rows in /home.json :", rows);
-            res.json(rows[0]);
-        })
-        .catch((err) => {
-            console.log("Error in /home.json :", err);
-        });
-
-    // res.json({
-    //     userId: req.session.userId,
-    // });
-});
-
 app.post("/updateUsersBio", (req, res) => {
     console.log("Requested session to update the bio", req.session);
     console.log("Requested body to update the bio", req.body);
@@ -238,88 +329,6 @@ app.post("/updateUsersBio", (req, res) => {
         })
         .catch((err) => {
             console.log("adding something to the bio failed:", err);
-        });
-});
-
-app.get("/logout", (req, res) => {
-    req.session = null;
-    res.redirect("/");
-});
-
-app.get("/users/:userSearch", (req, res) => {
-    console.log(
-        "Am I getting any users for the search?:",
-        req.params.userSearch
-    );
-    db.findOtherUsers(req.params.userSearch)
-        .then(({ rows }) => {
-            res.json(rows);
-        })
-        .catch((error) => {
-            console.log("error in userSearch :", error);
-        });
-});
-
-app.get("/latestUsers", (req, res) => {
-    db.getLatestUsers(req.session.userId)
-        .then(({ rows }) => {
-            res.json(rows);
-        })
-        .catch((error) => {
-            console.log("didn't find any users:", error);
-        });
-});
-
-app.get(`/api/user/:id`, (req, res) => {
-    console.log("req.params to go to other users page", req.params);
-    const { id } = req.params;
-    db.getUserInfoId(id)
-        .then(({ rows }) => {
-            console.log("rows in /user/:id.json :", rows[0]);
-            res.json(rows[0] || null);
-        })
-        .catch((err) => {
-            console.log("Error in set /user/:id.json :", err);
-        });
-});
-
-app.get("/api/friends-and-wannabees", (req, res) => {
-    console.log("req.session.userId in wannabees", req.session.userId);
-    db.getFriendsAndWannabeesByUserId(req.session.userId)
-        .then(({ rows }) => {
-            console.log("What are the rows in wannabee :", rows);
-            res.json(rows);
-        })
-        .catch((error) => {
-            console.log("didn't find any users:", error);
-        });
-});
-
-app.get(`/api/frienRequest/:id`, (req, res) => {
-    const loggedInUser = req.session.userId;
-    const otherUser = req.params.id;
-    console.log("Req.session.userId for Friendrequest", req.session.userId);
-    db.selectFriends(loggedInUser, otherUser)
-        .then(({ rows }) => {
-            console.log("what are the rows in frienRequest", rows);
-            if (!rows.length) {
-                res.json("Add Friend");
-            } else if (rows[0].accepted === true) {
-                res.json("End Friendship");
-            } else if (
-                rows[0].accepted === false &&
-                loggedInUser === rows[0].sender_id
-            ) {
-                res.json("Cancel Request");
-            } else if (
-                rows[0].accepted === false &&
-                loggedInUser === rows[0].recipient_id
-            ) {
-                res.json("Accept Friend Request");
-            }
-        })
-        .catch((error) => {
-            console.log("didn't find any users:", error);
         });
 });
 
@@ -364,9 +373,6 @@ app.post(`/api/accept-friend-request/:id`, (req, res) => {
 
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
-});
 
 server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
@@ -398,27 +404,40 @@ io.on("connection", function (socket) {
 
     socket.on("newMessage", (message) => {
         console.log("Whats the new message: ", message);
-        db.addMessagesToTheChat(message, userId).then(({ rows }) => {
-            console.log("My rows in socket.on", rows);
-            rows.forEach((row) => {
-                const created_at = moment(row.created_at).format(
-                    "MMMM Do YYYY, h:mm:ss a"
-                );
-                console.log(
-                    "My updated Date in the new comment: ",
-                    row.created_at
-                );
-                // add message to DB
-                // get users name and image url from DB
-                // emit to all connected clients
-                console.log("rows[0]", rows[0]);
-                db.getUsersNameAndImage(rows[0].user_id).then(({ rows }) => {
-                    console.log("rows from getUsersNameAndImage", rows);
-                    console.log("new chat message to be posted:", message);
-                    const newChatMessage = { ...rows[0], message, created_at };
-                    io.emit("chatMessage", newChatMessage);
+        db.addMessagesToTheChat(message, userId)
+            .then(({ rows }) => {
+                console.log("My rows in socket.on", rows);
+                rows.forEach((row) => {
+                    const created_at = moment(row.created_at).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                    );
+                    console.log(
+                        "My updated Date in the new comment: ",
+                        row.created_at
+                    );
+                    // add message to DB
+                    // get users name and image url from DB
+                    // emit to all connected clients
+                    console.log("rows[0]", rows[0]);
+                    db.getUsersNameAndImage(rows[0].user_id).then(
+                        ({ rows }) => {
+                            console.log("rows from getUsersNameAndImage", rows);
+                            console.log(
+                                "new chat message to be posted:",
+                                message
+                            );
+                            const newChatMessage = {
+                                ...rows[0],
+                                message,
+                                created_at,
+                            };
+                            io.emit("chatMessage", newChatMessage);
+                        }
+                    );
                 });
+            })
+            .catch((error) => {
+                console.log("Error in the new message", error);
             });
-        });
     });
 });

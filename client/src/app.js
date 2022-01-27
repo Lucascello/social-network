@@ -94,11 +94,6 @@ export default class App extends Component {
                             alt="social network logo"
                             id="homepage-logo"
                         />
-                        {/* <img
-                                src="social.png"
-                                alt="social network logo"
-                                id="homepage-logo"
-                            /> */}
                         <div className="navigation">
                             <a className="goodbye" href="/logout">
                                 <b>Logout</b>
@@ -110,12 +105,6 @@ export default class App extends Component {
                         <h3 className="bio-h3">
                             <Link to="/chat">Chat</Link>
                         </h3>
-                        {/* <h3
-                                onClick={this.toggleFindUserIsVisible}
-                                className="bio-h3"
-                            >
-                                Find Other Users
-                            </h3> */}
 
                         <h3 className="bio-h3">
                             <Link to="/find-other-users">Find Other Users</Link>
@@ -139,16 +128,6 @@ export default class App extends Component {
                     <Route path="/find-other-users">
                         <FindUsers />
                     </Route>
-
-                    {/* {this.state.findUserIsVisible && (
-                        <FindUsers
-                            toggleFindUserIsVisible={
-                                this.toggleFindUserIsVisible
-                            }
-                            findUserIsVisible={this.state.findUserIsVisible}
-                        />
-                    )} */}
-
                     {this.state.uploaderIsVisible && (
                         <Uploader
                             loggerFunc={this.logNameAndPic}

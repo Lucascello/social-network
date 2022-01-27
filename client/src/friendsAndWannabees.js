@@ -29,10 +29,7 @@ export default function FriendsAndWannabees() {
 
     console.log("wannabees: ", wannabees);
     console.log("currentFriends: ", currentFriends);
-    // Select the Friends from the state
-    // ...
 
-    // Get all friends and wannabees when the component mounts
     useEffect(() => {
         console.log("*********++++++++++++");
         // STEP 1: Make GET request to fetch friends and wannabees
@@ -143,5 +140,4 @@ export default function FriendsAndWannabees() {
             </div>
         </>
     );
-    // return <h1>Hello</h1>;
 }

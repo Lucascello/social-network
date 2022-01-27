@@ -9,11 +9,6 @@ export default function Chat() {
     });
     const chatContainerRef = useRef();
 
-    // useEffect(() => {
-    //     chatContainerRef.current.scrollTop =
-    //         chatContainerRef.current.scrollHeight;
-    // }, [chatMessages]);
-
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();

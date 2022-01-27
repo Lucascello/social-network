@@ -9,8 +9,6 @@ export default function FindUsers() {
     useEffect(() => {
         let abort = false;
         console.log("useEffect mounted");
-        // console.log("value in the search:", search);
-        // console.log("users in the search:", users);
         if (!search) {
             fetch("/latestUsers")
                 .then((res) => res.json())
@@ -38,12 +36,6 @@ export default function FindUsers() {
     return (
         <>
             <h1 className="findUsers">Find Other Users</h1>
-            {/* <h3
-                onClick={props.toggleFindUserIsVisible}
-                className="bio-h3-extra"
-            >
-                or Return To My Page
-            </h3> */}
             <h3 className="bio-h3-extra">
                 <Link to="/">or Return To My Page</Link>
             </h3>

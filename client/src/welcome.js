@@ -10,11 +10,6 @@ export default function Welcome() {
                 <h1 className="title">The Social-List </h1>
                 <h1 className="titletwo">Connecting you to the RIGHT people</h1>
                 <img className="social" src="/social.png" alt="logo" />
-                {/* <img
-                    style={{ width: "100vw", height: "auto" }}
-                    src="/social.png"
-                    alt="logo"
-                /> */}
             </header>
             <hr></hr>
             <main>
