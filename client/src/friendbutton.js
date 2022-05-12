@@ -6,11 +6,11 @@ export default function OtherProfile() {
     const { id } = useParams();
 
     useEffect(() => {
-        console.log("button mounted");
+        // console.log("button mounted");
         fetch(`/api/frienRequest/${id}`)
             .then((res) => res.json())
             .then((response) => {
-                console.log("Whats the response to add a friend?", response);
+                // console.log("Whats the response to add a friend?", response);
                 setButton(response);
             })
             .catch((err) => {
@@ -25,10 +25,10 @@ export default function OtherProfile() {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(
-                        "Whats the response to the add friend button?",
-                        response
-                    );
+                    // console.log(
+                    //     "Whats the response to the add friend button?",
+                    //     response
+                    // );
                     if (response === false) {
                         setButton("Cancel Request");
                     }
@@ -39,10 +39,10 @@ export default function OtherProfile() {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(
-                        "Whats the response to the cancel friend button?",
-                        response
-                    );
+                    // console.log(
+                    //     "Whats the response to the cancel friend button?",
+                    //     response
+                    // );
                     if (!response.length) {
                         setButton("Add Friend");
                     }
@@ -53,10 +53,10 @@ export default function OtherProfile() {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(
-                        "Whats the response to the accept friend button?",
-                        response
-                    );
+                    // console.log(
+                    //     "Whats the response to the accept friend button?",
+                    //     response
+                    // );
                     if (response) {
                         setButton("End Friendship");
                     }
@@ -67,10 +67,10 @@ export default function OtherProfile() {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(
-                        "Whats the response to the cancel friend button?",
-                        response
-                    );
+                    // console.log(
+                    //     "Whats the response to the cancel friend button?",
+                    //     response
+                    // );
                     if (!response.length) {
                         setButton("Add Friend");
                     }

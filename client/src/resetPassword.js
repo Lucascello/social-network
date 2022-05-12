@@ -10,12 +10,12 @@ export default class ResetPassword extends Component {
             error: "",
         };
     }
-    componentDidMount(e) {
-        console.log("Reset just mounted");
+    componentDidMount() {
+        // console.log("Reset just mounted");
     }
     incrementState(e) {
         e.preventDefault();
-        console.log("user gave it's email to change the password", this.state);
+        // console.log("user gave it's email to change the password", this.state);
         fetch("/requestCode.json", {
             method: "POST",
             headers: {
@@ -25,11 +25,11 @@ export default class ResetPassword extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /requestCode.json:", data);
-                console.log(
-                    "data from the user on requestCode.json:",
-                    data.userId
-                );
+                // console.log("response data from /requestCode.json:", data);
+                // console.log(
+                //     "data from the user on requestCode.json:",
+                //     data.userId
+                // );
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",
@@ -61,11 +61,11 @@ export default class ResetPassword extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /requestCode.json:", data);
-                console.log(
-                    "data from the user on requestCode.json:",
-                    data.userId
-                );
+                // console.log("response data from /requestCode.json:", data);
+                // console.log(
+                //     "data from the user on requestCode.json:",
+                //     data.userId
+                // );
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",
@@ -86,15 +86,15 @@ export default class ResetPassword extends Component {
             });
     }
     handleChange({ target }) {
-        console.log("input value changed :D");
-        console.log("value typed:", target.value);
-        console.log("name of target", target.name);
+        // console.log("input value changed :D");
+        // console.log("value typed:", target.value);
+        // console.log("name of target", target.name);
         // to update state we use this.setState and pass to it an object with our state changes
         this.setState(
             {
                 [target.name]: target.value,
             },
-            () => console.log("handleChange update done:", this.state)
+            // () => console.log("handleChange update done:", this.state)
         );
     }
     renderStage() {

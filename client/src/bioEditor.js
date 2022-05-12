@@ -12,8 +12,8 @@ export default class BioEditor extends Component {
         this.toggleBioIsVisible = this.toggleBioIsVisible.bind(this);
     }
     componentDidMount() {
-        console.log("bioEditor just mounted");
-        console.log("props in bioEditor:", this.props);
+        // console.log("bioEditor just mounted");
+        // console.log("props in bioEditor:", this.props);
     }
     toggleBioIsVisible() {
         this.setState({
@@ -23,19 +23,19 @@ export default class BioEditor extends Component {
     }
 
     handleChange({ target }) {
-        console.log("input value changed in bio :D");
-        console.log("value typed:", target.value);
-        console.log("name of target", target.name);
+        // console.log("input value changed in bio :D");
+        // console.log("value typed:", target.value);
+        // console.log("name of target", target.name);
         this.setState(
             {
                 [target.name]: target.value,
             },
-            () => console.log("handleChange update in bio done:", this.state)
+            // () => console.log("handleChange update in bio done:", this.state)
         );
     }
     updateUsersBio(e) {
         e.preventDefault();
-        console.log("************");
+        // console.log("************");
         fetch("/updateUsersBio", {
             method: "POST",
             headers: {
@@ -45,7 +45,7 @@ export default class BioEditor extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log(" data from /updateUsersBio:", data[0]);
+                // console.log(" data from /updateUsersBio:", data[0]);
                 this.props.toggleBioIsUpdated(data[0].bio);
             });
         this.toggleBioIsVisible();

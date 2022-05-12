@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
 
 export default function Chat() {
     const chatMessages = useSelector((state) => {
-        console.log("state: ", state);
+        // console.log("state: ", state);
         return state && state.chatMessages;
     });
     const chatContainerRef = useRef();
@@ -17,7 +17,7 @@ export default function Chat() {
         }
     };
 
-    console.log("These are my chatMessages:", chatMessages);
+    // console.log("These are my chatMessages:", chatMessages);
 
     return (
         <div className="container">

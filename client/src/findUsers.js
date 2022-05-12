@@ -8,12 +8,12 @@ export default function FindUsers() {
 
     useEffect(() => {
         let abort = false;
-        console.log("useEffect mounted");
+        // console.log("useEffect mounted");
         if (!search) {
             fetch("/latestUsers")
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log("these are the latest users:", data);
+                    // console.log("these are the latest users:", data);
                     setUsers(data);
                     setTitle("Checkout who just joined!");
                 });
@@ -22,7 +22,7 @@ export default function FindUsers() {
                 .then((res) => res.json())
                 .then((users) => {
                     if (!abort) {
-                        console.log("users in the search", users);
+                        // console.log("users in the search", users);
                         setUsers(users);
                         setTitle("Is this the person you are looking for?");
                     }

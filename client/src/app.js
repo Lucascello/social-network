@@ -30,13 +30,13 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        console.log("App component mounted");
+        // console.log("App component mounted");
         // Make fetch request to get data for currently logged in user
         // and store this data in the component state
         fetch("/home.json")
             .then((response) => response.json())
             .then((data) => {
-                console.log("data on home: ", data);
+                // console.log("data on home: ", data);
                 this.setState({
                     id: data.id,
                     first: data.first,
@@ -52,14 +52,14 @@ export default class App extends Component {
     }
 
     uploadPicture(url) {
-        console.log("url in my toggleUploader:", url);
+        // console.log("url in my toggleUploader:", url);
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
             url: url,
         });
     }
     toggleBioIsUpdated(bio) {
-        console.log("bio in my toggleBioIsVisible", bio);
+        // console.log("bio in my toggleBioIsVisible", bio);
         this.setState({
             bio: bio,
         });
@@ -78,7 +78,7 @@ export default class App extends Component {
     }
 
     logNameAndPic(val) {
-        console.log(this.state.uploaderIsVisible + val);
+        // console.log(this.state.uploaderIsVisible + val);
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
         });

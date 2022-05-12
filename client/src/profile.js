@@ -1,8 +1,8 @@
 import BioEditor from "./bioEditor";
 
 export default function Profile(props) {
-    console.log("props in Profile:", props);
-    console.log("props.url:", props.url);
+    // console.log("props in Profile:", props);
+    // console.log("props.url:", props.url);
     return (
         <>
             <div className="main-container">

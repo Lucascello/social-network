@@ -27,17 +27,17 @@ export default function FriendsAndWannabees() {
             )
     );
 
-    console.log("wannabees: ", wannabees);
-    console.log("currentFriends: ", currentFriends);
+    // console.log("wannabees: ", wannabees);
+    // console.log("currentFriends: ", currentFriends);
 
     useEffect(() => {
-        console.log("*********++++++++++++");
+        // console.log("*********++++++++++++");
         // STEP 1: Make GET request to fetch friends and wannabees
         // STEP 2: dispatch action to populate the redux state
         fetch(`/api/friends-and-wannabees`)
             .then((response) => response.json())
             .then((data) => {
-                console.log("this is the data", data);
+                // console.log("this is the data", data);
                 if (data) {
                     dispatch(receiveFriendsAndWannabees(data));
                 }
@@ -54,7 +54,7 @@ export default function FriendsAndWannabees() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("Whats the data to handleAccept", data);
+                // console.log("Whats the data to handleAccept", data);
                 dispatch(makeFriend(id));
             });
     }
@@ -65,7 +65,7 @@ export default function FriendsAndWannabees() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("Whats the data to handleRejection?", data);
+                // console.log("Whats the data to handleRejection?", data);
                 dispatch(endFriendship(id));
             });
     }

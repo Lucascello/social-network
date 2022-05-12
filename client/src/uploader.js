@@ -14,14 +14,14 @@ export default class uploader extends Component {
         e.preventDefault();
         const fd = new FormData();
         fd.append("file", this.file);
-        console.log("*************");
+        // console.log("*************");
         fetch("/uploadProfilePic", {
             method: "POST",
             body: fd,
         })
             .then((res) => res.json())
             .then((result) => {
-                console.log("result for the new pic result.url ", result.url);
+                // console.log("result for the new pic result.url ", result.url);
                 this.props.uploadPicture(result.url);
             })
             .catch((err) => {

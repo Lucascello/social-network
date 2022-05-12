@@ -16,7 +16,7 @@ const s3 = new aws.S3({
 
 module.exports.upload = (req, res, next) => {
     if (!req.file) {
-        console.log("No file. something wrong with mulder");
+        // console.log("No file. something wrong with mulder");
         return res.sendStatus(500);
     }
 
@@ -36,7 +36,7 @@ module.exports.upload = (req, res, next) => {
     promise
         .then(() => {
             // it worked!!!
-            console.log("IMAGE ON THE CLOUD");
+            // console.log("IMAGE ON THE CLOUD");
             next();
             fs.unlink(path, () => {});
         })

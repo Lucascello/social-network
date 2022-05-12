@@ -11,22 +11,22 @@ export default class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        console.log("Login just mounted");
+        // console.log("Login just mounted");
     }
     handleChange({ target }) {
-        console.log("input value changed :D");
-        console.log("value typed:", target.value);
-        console.log("name of target", target.name);
+        // console.log("input value changed :D");
+        // console.log("value typed:", target.value);
+        // console.log("name of target", target.name);
         this.setState(
             {
                 [target.name]: target.value,
             },
-            () => console.log("handleChange in login update done:", this.state)
+            // () => console.log("handleChange in login update done:", this.state)
         );
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("user wants to submit their details on login", this.state);
+        // console.log("user wants to submit their details on login", this.state);
         fetch("/login.json", {
             method: "POST",
             headers: {
@@ -36,9 +36,9 @@ export default class Login extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /login.json:", data);
-                console.log("data from the user:", data.userId);
-                console.log("Success in retrieving data", data.success);
+                // console.log("response data from /login.json:", data);
+                // console.log("data from the user:", data.userId);
+                // console.log("Success in retrieving data", data.success);
                 if (!data.success) {
                     this.setState({
                         error: "Something went wrong, please try again.",

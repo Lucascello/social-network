@@ -10,20 +10,20 @@ export default function OtherProfile(props) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        console.log("props.ownId", props.ownId);
-        console.log("id", id);
+        // console.log("props.ownId", props.ownId);
+        // console.log("id", id);
         if (props.ownId == id) {
             history.replace("/");
         } else {
             fetch(`/api/user/${id}`)
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log("response 1 in /api/user/${id}:", response);
+                    // console.log("response 1 in /api/user/${id}:", response);
                     if (response) {
-                        console.log("response 2 in /api/user/${id}:", response);
+                        // console.log("response 2 in /api/user/${id}:", response);
                         setUser(response);
                     } else {
-                        console.log("user doesnt exist");
+                        // console.log("user doesnt exist");
                         setError(true);
                     }
                 })

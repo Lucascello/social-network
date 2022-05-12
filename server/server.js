@@ -67,10 +67,10 @@ app.get("/user/id.json", function (req, res) {
 
 app.get("/home.json", (req, res) => {
     const { userId } = req.session;
-    console.log("requested session for home :", userId);
+    // console.log("requested session for home :", userId);
     db.getUserInfoId(userId)
         .then(({ rows }) => {
-            console.log("rows in /home.json :", rows);
+            // console.log("rows in /home.json :", rows);
             res.json(rows[0]);
         })
         .catch((err) => {
@@ -88,10 +88,10 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/users/:userSearch", (req, res) => {
-    console.log(
-        "Am I getting any users for the search?:",
-        req.params.userSearch
-    );
+    // console.log(
+    //     "Am I getting any users for the search?:",
+    //     req.params.userSearch
+    // );
     db.findOtherUsers(req.params.userSearch)
         .then(({ rows }) => {
             res.json(rows);
@@ -112,11 +112,11 @@ app.get("/latestUsers", (req, res) => {
 });
 
 app.get(`/api/user/:id`, (req, res) => {
-    console.log("req.params to go to other users page", req.params);
+    // console.log("req.params to go to other users page", req.params);
     const { id } = req.params;
     db.getUserInfoId(id)
         .then(({ rows }) => {
-            console.log("rows in /user/:id.json :", rows[0]);
+            // console.log("rows in /user/:id.json :", rows[0]);
             res.json(rows[0] || null);
         })
         .catch((err) => {
@@ -125,10 +125,10 @@ app.get(`/api/user/:id`, (req, res) => {
 });
 
 app.get("/api/friends-and-wannabees", (req, res) => {
-    console.log("req.session.userId in wannabees", req.session.userId);
+    // console.log("req.session.userId in wannabees", req.session.userId);
     db.getFriendsAndWannabeesByUserId(req.session.userId)
         .then(({ rows }) => {
-            console.log("What are the rows in wannabee :", rows);
+            // console.log("What are the rows in wannabee :", rows);
             res.json(rows);
         })
         .catch((error) => {
@@ -139,10 +139,10 @@ app.get("/api/friends-and-wannabees", (req, res) => {
 app.get(`/api/frienRequest/:id`, (req, res) => {
     const loggedInUser = req.session.userId;
     const otherUser = req.params.id;
-    console.log("Req.session.userId for Friendrequest", req.session.userId);
+    // console.log("Req.session.userId for Friendrequest", req.session.userId);
     db.selectFriends(loggedInUser, otherUser)
         .then(({ rows }) => {
-            console.log("what are the rows in frienRequest", rows);
+            // console.log("what are the rows in frienRequest", rows);
             if (!rows.length) {
                 res.json("Add Friend");
             } else if (rows[0].accepted === true) {
@@ -172,7 +172,7 @@ app.get("*", function (req, res) {
 
 app.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
-    console.log("requested body:", req.body);
+    // console.log("requested body:", req.body);
     hash(password)
         .then((hashedPw) => {
             // console.log("hashedPWd :", hashedPw);
@@ -199,7 +199,7 @@ app.post(
     function (req, res) {
         const { userId } = req.session;
         if (req.file) {
-            console.log("This Is My File: ", req.file);
+            // console.log("This Is My File: ", req.file);
 
             const url = `https://spicedling.s3.amazonaws.com/${req.file.filename}`;
 
@@ -225,20 +225,20 @@ app.post("/login.json", (req, res) => {
     if (email && password) {
         db.getPasswords(email)
             .then(({ rows }) => {
-                console.log("My rows in /login.json", rows);
+                // console.log("My rows in /login.json", rows);
                 compare(password, rows[0].password)
                     .then((match) => {
                         if (match) {
-                            console.log(
-                                "Whats the requestin /login.json",
-                                req.body
-                            );
+                            // console.log(
+                            //     "Whats the requestin /login.json",
+                            //     req.body
+                            // );
                             req.session.userId = rows[0].id;
                             res.json({ success: true });
                         } else {
-                            console.log(
-                                "Error In Comparing Passwords For Login: "
-                            );
+                            // console.log(
+                            //     "Error In Comparing Passwords For Login: "
+                            // );
                             res.json({ success: false });
                         }
                     })
@@ -262,20 +262,20 @@ app.post("/login.json", (req, res) => {
 app.post("/requestCode.json", (req, res) => {
     const { email } = req.body;
 
-    console.log("requested body in requestCode", req.body);
+    // console.log("requested body in requestCode", req.body);
     db.getUsersInfoEmail(email).then(({ rows }) => {
-        console.log("rows for the post requestCode:", rows);
+        // console.log("rows for the post requestCode:", rows);
         if (rows.length) {
-            console.log(
-                "random characters for the code:",
-                cryptoRandom({ length: 6 })
-            );
+            // console.log(
+            //     "random characters for the code:",
+            //     cryptoRandom({ length: 6 })
+            // );
             db.setCode(cryptoRandom({ length: 6 }), rows[0].email).then(
                 (result) => {
-                    console.log(
-                        "result from setting a code for reseting the password: ",
-                        result
-                    );
+                    // console.log(
+                    //     "result from setting a code for reseting the password: ",
+                    //     result
+                    // );
                     // console.log(
                     //     "users email to retrive code: ",
                     //     result.rows[0].email
@@ -297,14 +297,14 @@ app.post("/requestCode.json", (req, res) => {
 app.post("/resetPassword.json", (req, res) => {
     const { code, password, email } = req.body;
 
-    console.log("requested body in resetPassword", req.body);
+    // console.log("requested body in resetPassword", req.body);
 
     db.getResetPasswordCode(code).then(({ rows }) => {
         if (code === rows[0].code) {
             hash(password).then((hashedPw) => {
-                console.log("hashedPWd :", hashedPw);
-                console.log("email :", email);
-                console.log("password :", password);
+                // console.log("hashedPWd :", hashedPw);
+                // console.log("email :", email);
+                // console.log("password :", password);
                 db.updatePassword(hashedPw, email)
                     .then(() => {
                         res.json({ success: true });
@@ -319,12 +319,12 @@ app.post("/resetPassword.json", (req, res) => {
 });
 
 app.post("/updateUsersBio", (req, res) => {
-    console.log("Requested session to update the bio", req.session);
-    console.log("Requested body to update the bio", req.body);
+    // console.log("Requested session to update the bio", req.session);
+    // console.log("Requested body to update the bio", req.body);
     const { bio } = req.body;
     db.updateUsersBio(bio, req.session.userId)
         .then(({ rows }) => {
-            console.log("What are the rows in updateUsersBio :", rows);
+            // console.log("What are the rows in updateUsersBio :", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -337,7 +337,7 @@ app.post(`/api/add-friend/:id`, (req, res) => {
     const otherUser = req.params.id;
     db.startFriendship(loggedInUser, otherUser)
         .then(({ rows }) => {
-            console.log("What are the rows in add-friend :", rows);
+            // console.log("What are the rows in add-friend :", rows);
             res.json(rows[0].accepted);
         })
         .catch((err) => {
@@ -350,7 +350,7 @@ app.post(`/api/cancel-friend-request/:id`, (req, res) => {
     const otherUser = req.params.id;
     db.endFriendship(loggedInUser, otherUser)
         .then(({ rows }) => {
-            console.log("What are the rows in cancel-friend-request :", rows);
+            // console.log("What are the rows in cancel-friend-request :", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -363,7 +363,7 @@ app.post(`/api/accept-friend-request/:id`, (req, res) => {
     const otherUser = req.params.id;
     db.acceptFriendship(loggedInUser, otherUser)
         .then(({ rows }) => {
-            console.log("What are the rows in accept-friend-request :", rows);
+            // console.log("What are the rows in accept-friend-request :", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -383,18 +383,18 @@ io.on("connection", function (socket) {
         return socket.disconnect(true);
     }
     const userId = socket.request.session.userId;
-    console.log("Socket****************");
+    // console.log("Socket****************");
     db.getLastTenChatMessages()
         .then(({ rows }) => {
-            console.log("What are my rows in io.on:", rows);
+            // console.log("What are my rows in io.on:", rows);
             rows.forEach((row) => {
                 row.created_at = moment(row.created_at).format(
                     "MMMM Do YYYY, h:mm:ss a"
                 );
-                console.log(
-                    "My updated Date in the comments: ",
-                    row.created_at
-                );
+                // console.log(
+                //     "My updated Date in the comments: ",
+                //     row.created_at
+                // );
             });
             socket.emit("chatMessages", rows);
         })
@@ -403,29 +403,29 @@ io.on("connection", function (socket) {
         });
 
     socket.on("newMessage", (message) => {
-        console.log("Whats the new message: ", message);
+        // console.log("Whats the new message: ", message);
         db.addMessagesToTheChat(message, userId)
             .then(({ rows }) => {
-                console.log("My rows in socket.on", rows);
+                // console.log("My rows in socket.on", rows);
                 rows.forEach((row) => {
                     const created_at = moment(row.created_at).format(
                         "MMMM Do YYYY, h:mm:ss a"
                     );
-                    console.log(
-                        "My updated Date in the new comment: ",
-                        row.created_at
-                    );
+                    // console.log(
+                    //     "My updated Date in the new comment: ",
+                    //     row.created_at
+                    // );
                     // add message to DB
                     // get users name and image url from DB
                     // emit to all connected clients
-                    console.log("rows[0]", rows[0]);
+                    // console.log("rows[0]", rows[0]);
                     db.getUsersNameAndImage(rows[0].user_id).then(
                         ({ rows }) => {
-                            console.log("rows from getUsersNameAndImage", rows);
-                            console.log(
-                                "new chat message to be posted:",
-                                message
-                            );
+                            // console.log("rows from getUsersNameAndImage", rows);
+                            // console.log(
+                            //     "new chat message to be posted:",
+                            //     message
+                            // );
                             const newChatMessage = {
                                 ...rows[0],
                                 message,

@@ -7,7 +7,7 @@ const db = spicedPg(
     process.env.DATABASE_URL ||
         `postgres:${username}:${password}@localhost:5432/${database}`
 );
-console.log(`[db] connecting to:${database}`);
+// console.log(`[db] connecting to:${database}`);
 
 module.exports.addUsers = (firstName, lastName, email, password) => {
     const q = `INSERT INTO users (first, last, email, password)

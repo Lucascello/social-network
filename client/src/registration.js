@@ -12,23 +12,23 @@ export default class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        console.log("Registration just mounted");
+        // console.log("Registration just mounted");
     }
     handleChange({ target }) {
-        console.log("input value changed :D");
-        console.log("value typed:", target.value);
-        console.log("name of target", target.name);
+        // console.log("input value changed :D");
+        // console.log("value typed:", target.value);
+        // console.log("name of target", target.name);
         // to update state we use this.setState and pass to it an object with our state changes
         this.setState(
             {
                 [target.name]: target.value,
             },
-            () => console.log("handleChange update done:", this.state)
+            // () => console.log("handleChange update done:", this.state)
         );
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("user wants to submit their details", this.state);
+        // console.log("user wants to submit their details", this.state);
         // we now want to send over our user's data to the server
         fetch("/register.json", {
             method: "POST",
@@ -39,8 +39,8 @@ export default class Registration extends Component {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("response data from /register.json:", data);
-                console.log("data from the user:", data.userId);
+                // console.log("response data from /register.json:", data);
+                // console.log("data from the user:", data.userId);
 
                 // depending on whether or not we receive a successful server response
                 // if the user registration got an unsuccessful response:
